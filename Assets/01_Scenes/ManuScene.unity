@@ -803,6 +803,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07dc090e0f30f6645bebc780e77ddbcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  popupObj: {fileID: 3595702693482616739, guid: ec85a3b899466e441b818ce5e84f917b, type: 3}
   unlockButton: {fileID: 1711907961}
   id: 0
   shipNameText: {fileID: 1879352112}
@@ -1103,19 +1104,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 555471616}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1747013932}
-        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
-        m_MethodName: GoGameScene
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &555471616
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3792,6 +3781,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05308cb45fab35740a3d9945da652fff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StartButton: {fileID: 555471615}
   item: {fileID: 464195911}
   content: {fileID: 820401383}
   addButtonObj: {fileID: 595790105}

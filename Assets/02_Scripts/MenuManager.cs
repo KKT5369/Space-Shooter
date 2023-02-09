@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
 {
+    public Button StartButton;
     public static MenuManager instance;
     public GameObject item;
     public GameObject content;
@@ -22,6 +23,7 @@ public class MenuManager : MonoBehaviour
 
     private void Start()
     {
+        StartButton.onClick.AddListener(GoGameScene);
         int shipLength = GameDataSctipt.instance.ships.Length;
         for (int i = 0; i < shipLength; i++)
         {

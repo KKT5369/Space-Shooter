@@ -3,6 +3,32 @@ using UnityEngine;
 
 namespace Game
 {
+    public delegate void OnClick();
+
+    public class Util
+    {
+        public static void CreatePopup(string title, string detail, OnClick yesAction, OnClick noAction)
+        {
+            GameObject obj = Resources.Load<GameObject>("Prefabs/Popup");
+            GameObject parent = GameObject.Find("Canvas");
+            GameObject popupObj = GameObject.Instantiate(obj, parent.transform, false);
+            PopupScript popupScript = popupObj.GetComponent<PopupScript>();
+            popupScript.titleText.text = title;
+            popupScript.detailText.text = detail;
+            popupScript.SetYesListener(yesAction);
+            popupScript.SetNoListener(noAction);
+        }
+        public static void CreatePopup(string title, string detail, OnClick yesAction)
+        {
+            GameObject obj = Resources.Load<GameObject>("Prefabs/PopupOkay");
+            GameObject parent = GameObject.Find("Canvas");
+            GameObject popupObj = GameObject.Instantiate(obj, parent.transform, false);
+            PopupScript popupScript = popupObj.GetComponent<PopupScript>();
+            popupScript.titleText.text = title;
+            popupScript.detailText.text = detail;
+            popupScript.SetYesListener(yesAction);
+        }
+    }
     public struct ShipData
     {
         public int id;
