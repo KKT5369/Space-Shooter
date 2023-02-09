@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -15,7 +16,7 @@ public class GameManager : MonoBehaviour
     public List<GameObject> enemies;
     public float time = 0;
     public float maxTime = 2;
-    public float coin;
+    [FormerlySerializedAs("coin")] public float coinInGame;
     public float maxRight;
     private void Awake()
     {
@@ -27,8 +28,9 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        coin = 0;
-        coinText.text = coin.ToString();
+        coinInGame = 0;
+        //coinText.text = coinInGame.ToString();
+        coinText.text = GameDataSctipt.instance.GetCoin().ToString();
         maxRight = Camera.main.ViewportToWorldPoint(new Vector3(1, 1, 0)).x;
     }
 
