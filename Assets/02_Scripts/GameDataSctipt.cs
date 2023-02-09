@@ -48,7 +48,8 @@ public class GameDataSctipt : MonoBehaviour
             float base_dmg = float.Parse(rows[1]);
             string name = rows[2];
             string kName = rows[3];
-            int chr_level = PlayerPrefs.GetInt("Chr_Locked" + i.ToString(), 1);
+            float unlockCoin = float.Parse(rows[4]);
+            int chr_level = PlayerPrefs.GetInt("chr_level" + (i-1), 1);
             int locked;
             if (i == 1)
             {
@@ -56,10 +57,10 @@ public class GameDataSctipt : MonoBehaviour
             }
             else
             {
-                locked = PlayerPrefs.GetInt("Chr_Locked" + i.ToString(), 1);
+                locked = PlayerPrefs.GetInt("Chr_Locked" + (i - 1), 1);
             }
 
-            ships[i - 1] = new ShipData(id, base_dmg, name, kName, chr_level, locked);
+            ships[i - 1] = new ShipData(id, base_dmg, name, kName,unlockCoin, chr_level, locked);
             ships[i - 1].SetDamage();
             /*
             ships[i - 1].id = int.Parse(rows[0]);
@@ -77,14 +78,42 @@ public class GameDataSctipt : MonoBehaviour
 
     public float GetCoin()
     {
-        PlayerPrefs.GetFloat("TotalCoin", 0);
-        return this.coin;
+        coin = PlayerPrefs.GetFloat("TotalCoin",0);
+        return coin;
     }
 
     public void AddCoin(float coin)
     {
-        this.coin = coin;
+        this.coin += coin;
         PlayerPrefs.SetFloat("TotalCoin", this.coin);
+        MenuManager.instance.coinImage.gameObject.SetActive(true);
+        MenuManager.instance.coinText.gameObject.SetActive(true);
     }
-    
+
+    public bool CanUnlock(int id)
+    {
+        if (GetCoin() > ships[id].unlockCoin)
+        {
+            if (ships[id].GetLock() == 1)
+            {
+                return true;
+            }
+            else
+            {
+                print("코인은 있지만 락이 해제됨");
+                return false;
+            }
+        }
+        else
+        {
+            print("코인이 없는 경우");
+            return false;
+        }
+    }
+
+    public void ExcuteUnlock(int id)
+    {
+        AddCoin(-ships[id].unlockCoin);
+        ships[id].SetLock(0);
+    }
 }
