@@ -1,12 +1,8 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using Game;
+using UnityEngine;
 
 public class GameDataSctipt : MonoBehaviour
 {
-    
     private TextAsset shipTextAsset;
     public static GameDataSctipt instance;
     public ShipData[] ships;

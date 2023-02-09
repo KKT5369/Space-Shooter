@@ -711,13 +711,14 @@ GameObject:
   - component: {fileID: 464195912}
   - component: {fileID: 464195914}
   - component: {fileID: 464195913}
+  - component: {fileID: 464195915}
   m_Layer: 5
   m_Name: MenuItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &464195912
 RectTransform:
   m_ObjectHideFlags: 0
@@ -743,10 +744,10 @@ RectTransform:
   m_Father: {fileID: 820401384}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 450, y: -250}
+  m_SizeDelta: {x: 900, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &464195913
 MonoBehaviour:
@@ -786,6 +787,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 464195911}
   m_CullTransparentMesh: 1
+--- !u!114 &464195915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 464195911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07dc090e0f30f6645bebc780e77ddbcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unlockButton: {fileID: 1711907961}
+  id: 0
+  shipNameText: {fileID: 1879352112}
+  LevelText: {fileID: 865324021}
+  dmgText: {fileID: 915579130}
+  nextDmgText: {fileID: 1470414217}
+  shipImage: {fileID: 1970368217}
 --- !u!1 &504802724
 GameObject:
   m_ObjectHideFlags: 0
@@ -1880,7 +1900,7 @@ GameObject:
   - component: {fileID: 915579129}
   - component: {fileID: 915579128}
   m_Layer: 5
-  m_Name: CutTitleValue
+  m_Name: CurValue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2060,7 +2080,7 @@ GameObject:
   - component: {fileID: 1093209799}
   - component: {fileID: 1093209798}
   m_Layer: 5
-  m_Name: CutTitle
+  m_Name: CurTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2158,6 +2178,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1093209796}
   m_CullTransparentMesh: 1
+--- !u!1 &1141432922
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1141432924}
+  - component: {fileID: 1141432923}
+  m_Layer: 0
+  m_Name: DataManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1141432923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1141432922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b911a801b247524293b24861a446e79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coin: 0
+--- !u!4 &1141432924
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1141432922}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.67746794, y: 0.68063277, z: 1.1994133}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1301950796
 GameObject:
   m_ObjectHideFlags: 0
@@ -2242,9 +2307,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1747013932}
-        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
-        m_MethodName: GoGameScene
+      - m_Target: {fileID: 464195915}
+        m_TargetAssemblyTypeName: MenuItemScript, Assembly-CSharp
+        m_MethodName: PowerUpAction
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2659,7 +2724,7 @@ GameObject:
   - component: {fileID: 1711907962}
   - component: {fileID: 1711907961}
   m_Layer: 5
-  m_Name: UpgradeButton (1)
+  m_Name: UnlockButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2730,9 +2795,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1747013932}
-        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
-        m_MethodName: GoGameScene
+      - m_Target: {fileID: 464195915}
+        m_TargetAssemblyTypeName: MenuItemScript, Assembly-CSharp
+        m_MethodName: UnlockAction
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2921,6 +2986,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05308cb45fab35740a3d9945da652fff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  item: {fileID: 464195911}
+  content: {fileID: 820401383}
 --- !u!1 &1824650262
 GameObject:
   m_ObjectHideFlags: 0
@@ -3047,7 +3114,7 @@ GameObject:
   - component: {fileID: 1879352115}
   - component: {fileID: 1879352114}
   m_Layer: 5
-  m_Name: Text (Legacy)
+  m_Name: CutText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
