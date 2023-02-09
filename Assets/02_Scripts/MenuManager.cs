@@ -24,6 +24,7 @@ public class MenuManager : MonoBehaviour
             obj.transform.SetParent(content.transform, false);
             obj.SetActive(true);
             curItem.shipImage.sprite = Resources.Load<Sprite>(ship.GetImagName());
+            GetComponent<ScrollViewSnap>().item.Add(obj);
         }
     }
 
