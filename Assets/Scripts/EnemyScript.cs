@@ -20,19 +20,19 @@ public class EnemyScript : MonoBehaviour
         switch (type)
         {
             case 0:
-                hp = 10; speed = 1.5f; coin = 3;
+                hp = 10; speed = 1.2f; coin = 3;
                 maxShotTime = 3;
                 shotSpeed = 3;
                 break;
             case 1:
-                hp = 20; speed = 1.4f; coin = 4;
+                hp = 20; speed = 1.5f; coin = 4;
                 maxShotTime = 2;
                 shotSpeed = 4;
                 break;
             case 2:
-                hp = 50; speed = 1.3f; coin = 5;
-                maxShotTime = 1;
-                shotSpeed = 5;
+                hp = 50; speed = 2.5f; coin = 5;
+                maxShotTime = 5;
+                shotSpeed = 7;
                 break;
         }
     }
