@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     public List<GameObject> enemies;
     public float time = 0;
     public float maxTime = 2;
-    [FormerlySerializedAs("coin")] public float coinInGame;
+    public float coinInGame;
     public float maxRight;
     private void Awake()
     {
