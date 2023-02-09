@@ -7,6 +7,22 @@ public class GameDataSctipt : MonoBehaviour
     public static GameDataSctipt instance;
     public ShipData[] ships;
     public float coin;
+    private int _select;
+
+    public int select
+    {
+        get
+        {
+            _select = PlayerPrefs.GetInt("ChrSelect", 0);
+            return _select;
+        }
+        set
+        {
+            _select = value;
+            PlayerPrefs.SetInt("ChrSelect",_select);
+        }
+    }
+
     private void Awake()
     {
         if (instance == null)

@@ -12,6 +12,8 @@ public class ScrollViewSnap : MonoBehaviour
     public int minItemNum;
     float itemDistance;
     bool isDragging = false;
+    public int menuSelect;
+    private bool firstStart = true;
     void Start()
     {
         int buttonLength = item.Count;
@@ -27,8 +29,19 @@ public class ScrollViewSnap : MonoBehaviour
         float item0Pos =
             item[0].GetComponent<RectTransform>().anchoredPosition.x;
         itemDistance = Mathf.Abs(item1Pos - item0Pos);
-        //print(itemDistance);
+        if(itemDistance == 0 ) return;
+        if (firstStart)
+        {
+            menuSelect = GameDataSctipt.instance.select;
+            minItemNum = menuSelect;
+            if (minItemNum != 0)
+            {
+                contentRect.anchoredPosition = new Vector3(minItemNum * -itemDistance, 0, 0);
+            }
 
+            firstStart = false;
+        }
+        //print(itemDistance);
         for (int i=0; i<item.Count; i++){
             distance[i] = Mathf.Abs(center.transform.position.x -
                                     item[i].transform.position.x);
@@ -39,6 +52,13 @@ public class ScrollViewSnap : MonoBehaviour
                 minItemNum = i;
             }
         }
+
+        if (minItemNum != menuSelect)
+        {
+            GameDataSctipt.instance.select = minItemNum;
+            menuSelect = minItemNum;
+        }
+        
         if (!isDragging)
         {
             float targetPos = minItemNum * -itemDistance;
