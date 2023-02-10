@@ -11,7 +11,7 @@ public class EnemyScript : MonoBehaviour
     public float shotSpeed;
     public float time;
     public int type = 0;
-    public int hp = 3;
+    public float hp = 3;
     public float speed = 4;
     public float coin = 0;
     
@@ -50,8 +50,9 @@ public class EnemyScript : MonoBehaviour
         transform.Translate(Vector3.left * speed * Time.deltaTime);
     }
 
-    private void OnBecameInvisible()
+    public void DestroyGameObject()
     {
+        GameManager.instance.remainEnemy--;
         Destroy(gameObject);
     }
 }

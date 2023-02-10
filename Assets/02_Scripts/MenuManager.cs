@@ -54,7 +54,7 @@ public class MenuManager : MonoBehaviour
 
     public void AddTestCoin()
     {
-        GameDataSctipt.instance.AddCoin(10000);
+        GameDataSctipt.instance.AddCoinInMenu(10000);
         coinText.text = GameDataSctipt.instance.GetCoin().ToString();
     }
 

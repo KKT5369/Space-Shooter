@@ -7,7 +7,7 @@ public class AsteroidScript : MonoBehaviour
 {
     private float speed = 6;
     public float rotSpeed = 5;
-    public int hp = 10;
+    public float hp = 10;
     public float coin = 2;
     
     [SerializeField] private GameObject ExplosionAnim;
@@ -19,8 +19,9 @@ public class AsteroidScript : MonoBehaviour
         transform.Rotate(new Vector3(0,0, Time.deltaTime * rotSpeed));
     }
 
-    private void OnBecameInvisible()
+    public void DestroyGameObject()
     {
+        GameManager.instance.remainEnemy--;
         Destroy(gameObject);
     }
 }

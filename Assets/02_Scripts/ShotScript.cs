@@ -8,6 +8,7 @@ public class ShotScript : MonoBehaviour
     [SerializeField] private GameObject explosion;
     [SerializeField] private GameObject coin;
     public float speed = 10;
+    public float dmg;
     void Start()
     {
         
@@ -23,7 +24,7 @@ public class ShotScript : MonoBehaviour
         if (col.tag.Equals("Asteroid"))
         {
             AsteroidScript asteroidScript = col.gameObject.GetComponent<AsteroidScript>();
-            asteroidScript.hp -= 3;
+            asteroidScript.hp -= dmg;
             if (asteroidScript.hp <= 0)
             {
                 Destroy(Instantiate(explosion, transform.position, quaternion.identity),1f);
@@ -32,6 +33,7 @@ public class ShotScript : MonoBehaviour
                 CoinScript coinScript = coinObj.GetComponent<CoinScript>();
                 coinScript.coinSize = asteroidScript.coin;
                 Destroy(col.gameObject);
+                asteroidScript.DestroyGameObject();
             }
             Destroy(Instantiate(shotEffect, transform.position, Quaternion.identity),1f);
             Destroy(gameObject);
@@ -39,7 +41,7 @@ public class ShotScript : MonoBehaviour
         else if(col.tag.Equals("Enemy"))
         {
             EnemyScript enemyScript = col.gameObject.GetComponent<EnemyScript>();
-            enemyScript.hp -= 3;
+            enemyScript.hp -= dmg;
             if (enemyScript.hp <= 0)
             {
                 Destroy(Instantiate(explosion, transform.position, quaternion.identity),1f);
@@ -48,6 +50,7 @@ public class ShotScript : MonoBehaviour
                 CoinScript coinScript = coinObj.GetComponent<CoinScript>();
                 coinScript.coinSize = enemyScript.coin;
                 Destroy(col.gameObject);
+                enemyScript.DestroyGameObject();
             }
             Destroy(Instantiate(shotEffect, transform.position, Quaternion.identity),1f);
             Destroy(gameObject);

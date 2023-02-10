@@ -8,6 +8,20 @@ public class GameDataSctipt : MonoBehaviour
     public ShipData[] ships;
     public float coin;
     private int _select;
+    private int stage;
+
+    public int GetStage()
+    {
+        stage = PlayerPrefs.GetInt("Stage", 1);
+        return stage;
+    }
+
+    public void AddStage()
+    {
+        stage = PlayerPrefs.GetInt("Stage",1);
+        stage++;
+        PlayerPrefs.SetInt("Stage", stage);
+    }
 
     public int select
     {
@@ -84,12 +98,19 @@ public class GameDataSctipt : MonoBehaviour
         return coin;
     }
 
-    public void AddCoin(float coin)
+    public void AddCoinInMenu(float coin)
     {
         this.coin += coin;
         PlayerPrefs.SetFloat("TotalCoin", this.coin);
         MenuManager.instance.coinImage.gameObject.SetActive(true);
         MenuManager.instance.coinText.gameObject.SetActive(true);
+    }
+    
+    public void AddCoin(float coin)
+    {
+        this.coin += coin;
+        PlayerPrefs.SetFloat("TotalCoin", this.coin);
+        
     }
 
     public bool CanUnlock(int id)
@@ -115,7 +136,7 @@ public class GameDataSctipt : MonoBehaviour
 
     public void ExcuteUnlock(int id)
     {
-        AddCoin(-ships[id].unlockCoin);
+        AddCoinInMenu(-ships[id].unlockCoin);
         ships[id].SetLock(0);
     }
 
@@ -129,7 +150,7 @@ public class GameDataSctipt : MonoBehaviour
 
     public void UpgradeAction(int id)
     {
-        AddCoin(-ships[id].upgradeCoin);
+        AddCoinInMenu(-ships[id].upgradeCoin);
         ships[id].AddChrLevel();
     }
 }

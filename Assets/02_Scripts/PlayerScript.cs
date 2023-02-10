@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Game;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -13,6 +14,8 @@ public class PlayerScript : MonoBehaviour
     private Vector3 min, max;
     private Vector2 colSize;
     private Vector2 chrSize;
+    public float dmg;
+    public SpriteRenderer spr;
 
     void Start()
     {
@@ -22,7 +25,11 @@ public class PlayerScript : MonoBehaviour
         //max = new Vector3(8, 4.5f, 0);
         colSize = GetComponent<BoxCollider2D>().size;
         chrSize = new Vector2(colSize.x / 2, colSize.y / 2);
-        
+        int select = GameDataSctipt.instance.select;
+        ShipData shipData = GameDataSctipt.instance.ships[select];
+        dmg = shipData.dmg;
+        spr = GetComponent<SpriteRenderer>();
+        spr.sprite = Resources.Load<Sprite>(shipData.GetImagName());
     }
 
     void Update()
@@ -44,6 +51,9 @@ public class PlayerScript : MonoBehaviour
                 Vector3 vec = new Vector3(transform.position.x + 1.12f, 
                     transform.position.y - 0.17f, transform.position.z);
                 Instantiate(shot, vec , Quaternion.identity);
+                GameObject shotObj = Instantiate(shot, vec, quaternion.identity);
+                ShotScript shotScript = shotObj.GetComponent<ShotScript>();
+                shotScript.dmg = dmg;
             }
         }
     }
@@ -92,9 +102,12 @@ public class PlayerScript : MonoBehaviour
         }
         else if (col.tag.Equals("Asteroid") || col.tag.Equals("Enemy") || col.tag.Equals("EnemyShot"))
         {
+            GameManager.instance.isAlive = false;
             Destroy(Instantiate(explosion, transform.position, quaternion.identity),1f);
             Destroy(col.gameObject);
             Destroy(gameObject);
+            //GameManager.instance.retryPanel.SetActive(true);
+            GameManager.instance.RetryPanelSetActiveAfter1Sec();
         }
     }
 }
