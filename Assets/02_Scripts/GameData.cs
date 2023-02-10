@@ -40,18 +40,24 @@ namespace Game
         public float dmg;
         public float nextDmg;
         public float unlockCoin;
+        public float upgradeCoin;
+        public float base_upgradeCoin;
 
-        public ShipData(int id,float base_dmg,string name,string kName,float unlockCoin,int chr_level,int locked,float dmg = 1,float nextDmg = 1)
+        public ShipData(int id,float base_dmg,string name,string kName,float unlockCoin,float base_upgradeCoin,
+                        int chr_level = 1,int locked = 1,
+                        float dmg = 1,float nextDmg = 1,float upgradeCoin = 100)
         {
             this.id = id;
             this.base_dmg = base_dmg;
             this.name = name;
             this.kName = kName;
             this.unlockCoin = unlockCoin;
+            this.base_upgradeCoin = base_upgradeCoin;
             this.chr_level = chr_level;
             this.locked = locked;
             this.dmg = dmg;
             this.nextDmg = nextDmg;
+            this.upgradeCoin = upgradeCoin;
         }
 
         public string GetImagName()
@@ -65,10 +71,15 @@ namespace Game
             this.dmg = chr_level * base_dmg;
             this.nextDmg = (chr_level + 1) * base_dmg;
         }
+
+        public void SetUpgradeCoin()
+        {
+            this.upgradeCoin = chr_level * base_upgradeCoin;
+        }
         public void Show()
         {
-            Debug.Log($"id : {id} base_dmg : {base_dmg} name : {name} kName : {kName} unlockCoin : {unlockCoin}" +
-                      $" chr_level : {chr_level} locked : {locked} dmg : {dmg}");
+            Debug.Log($"id : {id} base_dmg : {base_dmg} name : {name} kName : {kName} unlockCoin : {unlockCoin} base_upgradeCoin : {base_upgradeCoin}" +
+                      $" chr_level : {chr_level} locked : {locked} dmg : {dmg} upgradeCoin : {upgradeCoin}");
         }
 
         public void SetLock(int locked)
@@ -92,6 +103,14 @@ namespace Game
                 this.locked = PlayerPrefs.GetInt("Chr_Locked" + id.ToString(), 1);
                 return this.locked;
             }
+        }
+
+        public void AddChrLevel()
+        {
+            chr_level++;
+            PlayerPrefs.SetInt("Chr_Level" + id.ToString() , chr_level);
+            SetDamage();
+            SetUpgradeCoin();
         }
     }
 }

@@ -30,7 +30,7 @@ public class MenuManager : MonoBehaviour
             ShipData ship = GameDataSctipt.instance.ships[i];
             GameObject obj = Instantiate(item, transform.position, quaternion.identity);
             MenuItemScript curItem = obj.GetComponent<MenuItemScript>();
-            curItem.SetUI(ship.name, ship.chr_level.ToString(),ship.dmg.ToString(),ship.nextDmg.ToString(),ship.locked,ship.unlockCoin);
+            curItem.SetUI(ship.name, ship.chr_level.ToString(),ship.dmg.ToString(),ship.nextDmg.ToString(),ship.locked,ship.unlockCoin,ship.upgradeCoin);
             curItem.id = ship.id;
             obj.name = i.ToString();
             obj.transform.SetParent(content.transform, false);

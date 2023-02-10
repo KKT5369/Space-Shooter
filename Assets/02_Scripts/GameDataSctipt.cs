@@ -49,6 +49,7 @@ public class GameDataSctipt : MonoBehaviour
             string name = rows[2];
             string kName = rows[3];
             float unlockCoin = float.Parse(rows[4]);
+            float baseUpgradeCoin = float.Parse(rows[5]);
             int chr_level = PlayerPrefs.GetInt("chr_level" + (i-1), 1);
             int locked;
             if (i == 1)
@@ -60,8 +61,9 @@ public class GameDataSctipt : MonoBehaviour
                 locked = PlayerPrefs.GetInt("Chr_Locked" + (i - 1), 1);
             }
 
-            ships[i - 1] = new ShipData(id, base_dmg, name, kName,unlockCoin, chr_level, locked);
+            ships[i - 1] = new ShipData(id, base_dmg, name, kName,unlockCoin,baseUpgradeCoin, chr_level, locked);
             ships[i - 1].SetDamage();
+            ships[i - 1].SetUpgradeCoin();
             /*
             ships[i - 1].id = int.Parse(rows[0]);
             ships[i - 1].base_dmg = float.Parse(rows[1]);
@@ -115,5 +117,19 @@ public class GameDataSctipt : MonoBehaviour
     {
         AddCoin(-ships[id].unlockCoin);
         ships[id].SetLock(0);
+    }
+
+    public bool CanUpgrade(int id)
+    {
+        if (GetCoin() > ships[id].upgradeCoin)
+            return true;
+        else
+            return false;
+    }
+
+    public void UpgradeAction(int id)
+    {
+        AddCoin(-ships[id].upgradeCoin);
+        ships[id].AddChrLevel();
     }
 }
