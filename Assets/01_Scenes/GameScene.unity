@@ -1673,6 +1673,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e49b975a1bbd7424daef4f1ad3572278, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyWavePrefabs:
+  - {fileID: 7886165216371542658, guid: d39e9fa1d13402143a46af2a8a13b111, type: 3}
+  - {fileID: 1589903841199656773, guid: 3432f8043af0ff24ba12ef4259bbaa38, type: 3}
+  - {fileID: 4157494523870970589, guid: 8e5c135dc29633c4c88381e550b97e37, type: 3}
+  enemyWaves: []
+  spawnIndex: 0
+  spawnTime: 2
   ClearPanel: {fileID: 2029919796}
   stageInClearText: {fileID: 1060020403}
   coinInClearText: {fileID: 976808602}
@@ -1695,7 +1702,6 @@ MonoBehaviour:
   - {fileID: 4329566972667392409, guid: fc68bd4b16e758640907c8992d4df56c, type: 3}
   - {fileID: 5811783030102340732, guid: e07f0045952901b4ca1f2011dba9f375, type: 3}
   time: 0
-  spawnTime: 2
   coinInGame: 0
   maxRight: 0
   spawnCount: 0

@@ -38,7 +38,7 @@ public class PlayerScript : MonoBehaviour
         PlayerShot();
     }
 
-    public float shotMax = 0.2f;
+    public float shotMax = 0.5f;
     private float shotDelay;
     private void PlayerShot()
     {

@@ -21,7 +21,7 @@ public class AsteroidScript : MonoBehaviour
 
     public void DestroyGameObject()
     {
-        GameManager.instance.remainEnemy--;
+        //GameManager.instance.remainEnemy--;
         //Destroy(gameObject);
         ObjectPoolManager.instance.asteroid.Destroy(gameObject);
         

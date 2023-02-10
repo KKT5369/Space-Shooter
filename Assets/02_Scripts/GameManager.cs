@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Game;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
@@ -6,6 +7,10 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public List<GameObject> enemyWavePrefabs;
+    public List<EnemyWave> enemyWaves;
+    public int spawnIndex;
+    public float spawnTime;
     public GameObject ClearPanel;
     public Text stageInClearText;
     public Text coinInClearText;
@@ -26,7 +31,6 @@ public class GameManager : MonoBehaviour
     public GameObject astroid;
     public List<GameObject> enemies;
     public float time = 0;
-    public float spawnTime = 2;
     public float coinInGame;
     public float maxRight;
     public int spawnCount = 0;
@@ -57,11 +61,75 @@ public class GameManager : MonoBehaviour
         mainMenuRetryButton.onClick.AddListener(MainMenuInRetryAction);
         adButton.onClick.AddListener(AdAction);
         nextStageButton.onClick.AddListener(NextStageInClearAction);
+        enemyWaves = new List<EnemyWave>();
+        enemyWaves = GameDataSctipt.instance.GetStageWave(stageInGame);
+        for (int i = 0; i < enemyWaves.Count; i++)
+        {
+            enemyWaves[i].Show();
+        }
+        /*
+        enemyWaves.Add(new EnemyWave(0,0,2));
+        enemyWaves.Add(new EnemyWave(1,1,3));
+        enemyWaves.Add(new EnemyWave(2,1,2));
+        enemyWaves.Add(new EnemyWave(3,2,3));
+        enemyWaves.Add(new EnemyWave(4,2,2));
+        */
+        remainEnemy = 0;
+        spawnIndex = 0;
+        spawnTime = 0;
         
+        SpawnEnemyWave();
     }
 
+    public void SpawnEnemyWave()
+    {
+        int type = enemyWaves[spawnIndex].type;
+        spawnTime += enemyWaves[spawnIndex].time;
+        int count = enemyWavePrefabs[type].transform.childCount;
+        //Instantiate(enemyWavePrefabs[type], new Vector3(maxRight + 2, Random.Range(-3.0f, 3.0f), 0), Quaternion.identity);
+        Vector3 pos = new Vector3(0, Random.Range(-3.0f, 3.0f), 0);
+        for (int i = 0; i < count; i++)
+        {
+            Transform tr = enemyWavePrefabs[type].transform.GetChild(i).transform;
+            EnemyScript enemyPrefabScript = tr.GetComponent<EnemyScript>();
+            int enemyType = enemyPrefabScript.type;
+            GameObject enemyObj = ObjectPoolManager.instance.enemies[enemyType].Create();
+            enemyObj.transform.position = tr.position + pos;
+            enemyObj.transform.rotation = Quaternion.identity;
+        }
+        remainEnemy += count;
+        spawnIndex++;
+    }
+
+    public float asteroidTime = 0;
+    public float asteroidSpawnTime = 3;
     void Update()
     {
+        time += Time.deltaTime;
+        asteroidTime += Time.deltaTime;
+        if (time > spawnTime)
+        {
+            if (spawnIndex < enemyWaves.Count)
+            {
+                SpawnEnemyWave();
+            }
+            else
+            {
+                if (remainEnemy <= 0 && stageClear == false && isAlive)
+                {
+                    stageClear = true;
+                    ClearPanelActiveAfter1Sec();
+                }
+            }
+        }
+        else if (asteroidTime > asteroidSpawnTime && spawnIndex < enemyWaves.Count)
+        {
+            GameObject obj = ObjectPoolManager.instance.asteroid.Create();
+            obj.transform.position = new Vector3(maxRight + 2, Random.Range(-4.0f, 4.0f), 0);
+            obj.transform.rotation = Quaternion.identity;
+            asteroidTime = 0;
+        }
+        /*
         time += Time.deltaTime;
         if (time > spawnTime)
         {
@@ -96,6 +164,7 @@ public class GameManager : MonoBehaviour
             }
             time = 0;
         }
+        */
     }
 
     public void PauseAction()

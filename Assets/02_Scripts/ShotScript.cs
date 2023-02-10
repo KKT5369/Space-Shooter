@@ -32,6 +32,7 @@ public class ShotScript : MonoBehaviour
             shotEffectScript.InitTime();
             if (asteroidScript.hp <= 0)
             {
+                Debug.Log("행성 폭파");
                 //Destroy(Instantiate(explosion, transform.position, quaternion.identity),1f);
                 GameObject explosionObject = ObjectPoolManager.instance.explosion.Create();
                 explosionObject.transform.position = transform.position;
@@ -54,6 +55,7 @@ public class ShotScript : MonoBehaviour
         }
         else if(col.tag.Equals("Enemy"))
         {
+            
             EnemyScript enemyScript = col.gameObject.GetComponent<EnemyScript>();
             enemyScript.hp -= dmg;
             GameObject shotGameObject = ObjectPoolManager.instance.shotEffect.Create();
@@ -63,6 +65,7 @@ public class ShotScript : MonoBehaviour
             shotEffectScript.InitTime();
             if (enemyScript.hp <= 0)
             {
+                Debug.Log("적 격파");
                 //Destroy(Instantiate(explosion, transform.position, quaternion.identity),1f);
                 GameObject explosionObject = ObjectPoolManager.instance.explosion.Create();
                 explosionObject.transform.position = transform.position;

@@ -1,11 +1,14 @@
+using System.Collections.Generic;
 using Game;
 using UnityEngine;
 
 public class GameDataSctipt : MonoBehaviour
 {
     private TextAsset shipTextAsset;
+    private TextAsset enemyWaveTextAsset;
     public static GameDataSctipt instance;
     public ShipData[] ships;
+    public EnemyWave[] enemyWaves;
     public float coin;
     private int _select;
     private int stage;
@@ -86,12 +89,30 @@ public class GameDataSctipt : MonoBehaviour
             */
         }
 
-        for (int i = 0; i < ships.Length; i++)
-        {
-            ships[i].Show();
-        }
+        // for (int i = 0; i < ships.Length; i++)
+        // {
+        //     ships[i].Show();
+        // }
+        LoadEnemyWave();
     }
 
+    public void LoadEnemyWave()
+    {
+        enemyWaveTextAsset = Resources.Load<TextAsset>("enemeyWave");
+        string[] lines = enemyWaveTextAsset.text.Split('\n');
+        enemyWaves = new EnemyWave[lines.Length - 2];
+        for (int i = 1; i < lines.Length - 1; i++)
+        {
+            string[] rows = lines[i].Split('\t');
+            int stage = int.Parse(rows[0]);
+            int type = int.Parse(rows[1]);
+            float time = int.Parse(rows[2]);
+            
+            enemyWaves[i - 1] = new EnemyWave(stage,type,time);
+            
+        }
+    }
+    
     public float GetCoin()
     {
         coin = PlayerPrefs.GetFloat("TotalCoin",0);
@@ -152,5 +173,29 @@ public class GameDataSctipt : MonoBehaviour
     {
         AddCoinInMenu(-ships[id].upgradeCoin);
         ships[id].AddChrLevel();
+    }
+
+    public List<EnemyWave> GetStageWave(int stage)
+    {
+        List<EnemyWave> list = new List<EnemyWave>();
+        for (int i = 0; i < enemyWaves.Length; i++)
+        {
+            if (enemyWaves[i].stage == stage)
+            {
+                list.Add(enemyWaves[i]);
+            }
+        }
+
+        if (list.Count == 0)
+        {
+            for (int i = 0; i < enemyWaves.Length; i++)
+            {
+                if (enemyWaves[i].stage >= 3)
+                {
+                    list.Add(enemyWaves[i]);
+                }
+            }
+        }
+        return list;
     }
 }

@@ -113,4 +113,24 @@ namespace Game
             SetUpgradeCoin();
         }
     }
+
+    [System.Serializable]
+    public struct EnemyWave
+    {
+        public int stage;
+        public int type;
+        public float time;
+
+        public EnemyWave(int stage, int type, float time)
+        {
+            this.stage = stage;
+            this.type = type;
+            this.time = time;
+        }
+
+        public void Show()
+        {
+            Debug.Log($"stage : {stage} type : {type} time : {time}");
+        }
+    }
 }
