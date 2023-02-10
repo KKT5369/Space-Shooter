@@ -9,8 +9,13 @@ public class AsteroidScript : MonoBehaviour
     public float rotSpeed = 5;
     public float hp = 10;
     public float coin = 2;
-    
     [SerializeField] private GameObject ExplosionAnim;
+
+    public void Init(float hp, float coin)
+    {
+        this.hp = hp;
+        this.coin = coin;
+    }
 
     void Update()
     {

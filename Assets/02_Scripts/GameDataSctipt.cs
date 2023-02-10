@@ -6,9 +6,11 @@ public class GameDataSctipt : MonoBehaviour
 {
     private TextAsset shipTextAsset;
     private TextAsset enemyWaveTextAsset;
+    private TextAsset enemyTextAsset;
     public static GameDataSctipt instance;
     public ShipData[] ships;
     public EnemyWave[] enemyWaves;
+    public Enemy[] enemies;
     public float coin;
     private int _select;
     private int stage;
@@ -93,12 +95,31 @@ public class GameDataSctipt : MonoBehaviour
         // {
         //     ships[i].Show();
         // }
+        LoadEnemy();
         LoadEnemyWave();
     }
-
+    public void LoadEnemy()
+    {
+        enemyTextAsset = Resources.Load<TextAsset>("enemy");
+        string[] lines = enemyTextAsset.text.Split('\n');
+        enemies = new Enemy[lines.Length - 2];
+        for (int i = 1; i < lines.Length - 1; i++)
+        {
+            string[] rows = lines[i].Split('\t');
+            int type = int.Parse(rows[0]);
+            string name = rows[1];
+            float hp = float.Parse(rows[2]);
+            float speed = float.Parse(rows[3]);
+            float maxShotTime = float.Parse(rows[4]);
+            float shotSpeed = float.Parse(rows[5]);
+            float coin = float.Parse(rows[6]);
+            
+            enemies[i - 1] = new Enemy(type,name,hp,speed,maxShotTime,shotSpeed,coin);
+        }
+    }
     public void LoadEnemyWave()
     {
-        enemyWaveTextAsset = Resources.Load<TextAsset>("enemeyWave");
+        enemyWaveTextAsset = Resources.Load<TextAsset>("enemyWave");
         string[] lines = enemyWaveTextAsset.text.Split('\n');
         enemyWaves = new EnemyWave[lines.Length - 2];
         for (int i = 1; i < lines.Length - 1; i++)
@@ -109,7 +130,6 @@ public class GameDataSctipt : MonoBehaviour
             float time = int.Parse(rows[2]);
             
             enemyWaves[i - 1] = new EnemyWave(stage,type,time);
-            
         }
     }
     
@@ -197,5 +217,23 @@ public class GameDataSctipt : MonoBehaviour
             }
         }
         return list;
+    }
+
+    public float GetEnemyHp(float base_hp, int stage)
+    {
+        return base_hp * stage;
+    }
+    public float GetEnemyCoin(float base_coin, int stage)
+    {
+        return base_coin * stage;
+    }
+    
+    public float GetAsteroidHp(int stage)
+    {
+        return 1 * stage;
+    }
+    public float GetAsteroidCoin(int stage)
+    {
+        return 2 * stage;
     }
 }

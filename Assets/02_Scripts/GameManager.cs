@@ -63,10 +63,6 @@ public class GameManager : MonoBehaviour
         nextStageButton.onClick.AddListener(NextStageInClearAction);
         enemyWaves = new List<EnemyWave>();
         enemyWaves = GameDataSctipt.instance.GetStageWave(stageInGame);
-        for (int i = 0; i < enemyWaves.Count; i++)
-        {
-            enemyWaves[i].Show();
-        }
         /*
         enemyWaves.Add(new EnemyWave(0,0,2));
         enemyWaves.Add(new EnemyWave(1,1,3));
@@ -96,6 +92,11 @@ public class GameManager : MonoBehaviour
             GameObject enemyObj = ObjectPoolManager.instance.enemies[enemyType].Create();
             enemyObj.transform.position = tr.position + pos;
             enemyObj.transform.rotation = Quaternion.identity;
+            EnemyScript enemyScript = enemyObj.GetComponent<EnemyScript>();
+            Enemy enemy = GameDataSctipt.instance.enemies[enemyType];
+            float cur_hp = GameDataSctipt.instance.GetEnemyHp(enemy.hp, stageInGame);
+            float cur_coin = GameDataSctipt.instance.GetEnemyHp(enemy.coin, stageInGame);
+            enemyScript.Init(enemyType,enemy.name,cur_hp,enemy.speed,enemy.maxShotTime,enemy.shotSpeed,cur_coin);
         }
         remainEnemy += count;
         spawnIndex++;
@@ -127,6 +128,10 @@ public class GameManager : MonoBehaviour
             GameObject obj = ObjectPoolManager.instance.asteroid.Create();
             obj.transform.position = new Vector3(maxRight + 2, Random.Range(-4.0f, 4.0f), 0);
             obj.transform.rotation = Quaternion.identity;
+            AsteroidScript asteroidScript = obj.GetComponent<AsteroidScript>();
+            float hp = GameDataSctipt.instance.GetAsteroidHp(stageInGame);
+            float coin = GameDataSctipt.instance.GetAsteroidCoin(stageInGame);
+            asteroidScript.Init(hp,coin);
             asteroidTime = 0;
         }
         /*

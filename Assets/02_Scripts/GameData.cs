@@ -133,4 +133,26 @@ namespace Game
             Debug.Log($"stage : {stage} type : {type} time : {time}");
         }
     }
+    [System.Serializable]
+    public struct Enemy
+    {
+        public int id;
+        public string name;
+        public float hp;
+        public float speed;
+        public float maxShotTime;
+        public float shotSpeed;
+        public float coin;
+
+        public Enemy(int id, string name, float hp,float speed,float maxShotTime,float shotSpeed,float coin)
+        {
+            this.id = id;
+            this.name = name;
+            this.hp = hp;
+            this.speed = speed;
+            this.maxShotTime = maxShotTime;
+            this.shotSpeed = shotSpeed;
+            this.coin = coin;
+        }
+    }
 }

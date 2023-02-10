@@ -14,28 +14,39 @@ public class EnemyScript : MonoBehaviour
     public float hp = 3;
     public float speed = 4;
     public float coin = 0;
-    
-    void Start()
+    public string enemyName;
+
+    public void Init(int type, string name, float hp, float speed, float maxShotTime, float shotSpeed, float coin)
     {
-        switch (type)
-        {
-            case 0:
-                hp = 10; speed = 1.2f; coin = 3;
-                maxShotTime = 3;
-                shotSpeed = 3;
-                break;
-            case 1:
-                hp = 20; speed = 1.5f; coin = 4;
-                maxShotTime = 2;
-                shotSpeed = 4;
-                break;
-            case 2:
-                hp = 50; speed = 2.5f; coin = 5;
-                maxShotTime = 5;
-                shotSpeed = 7;
-                break;
-        }
+        this.type = type;
+        this.enemyName = name;
+        this.hp = hp;
+        this.speed = speed;
+        this.maxShotTime = maxShotTime;
+        this.shotSpeed = shotSpeed;
+        this.coin = coin;
     }
+    // void Start()
+    // {
+    //     switch (type)
+    //     {
+    //         case 0:
+    //             hp = 10; speed = 1.2f; coin = 3;
+    //             maxShotTime = 3;
+    //             shotSpeed = 3;
+    //             break;
+    //         case 1:
+    //             hp = 20; speed = 1.5f; coin = 4;
+    //             maxShotTime = 2;
+    //             shotSpeed = 4;
+    //             break;
+    //         case 2:
+    //             hp = 50; speed = 2.5f; coin = 5;
+    //             maxShotTime = 5;
+    //             shotSpeed = 7;
+    //             break;
+    //     }
+    // }
 
     void Update()
     {
