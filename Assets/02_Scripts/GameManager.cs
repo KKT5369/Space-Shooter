@@ -78,12 +78,18 @@ public class GameManager : MonoBehaviour
                 int check = Random.Range(0, 2);
                 if (check == 0)
                 {
-                    Instantiate(astroid, new Vector3(maxRight + 2, Random.Range(-4.0f,4.0f) , 0), Quaternion.identity);
+                    //Instantiate(astroid, new Vector3(maxRight + 2, Random.Range(-4.0f,4.0f) , 0), Quaternion.identity);
+                    GameObject obj = ObjectPoolManager.instance.asteroid.Create();
+                    obj.transform.position = new Vector3(maxRight + 2, Random.Range(-4.0f, 4.0f), 0);
+                    obj.transform.rotation = Quaternion.identity;
                 }
                 else
                 {
                     int type = Random.Range(0, 3);
-                    Instantiate(enemies[type], new Vector3(maxRight + 2, Random.Range(-4.0f, 4.0f), 0), Quaternion.identity);
+                    //Instantiate(enemies[type], new Vector3(maxRight + 2, Random.Range(-4.0f, 4.0f), 0), Quaternion.identity);
+                    GameObject obj = ObjectPoolManager.instance.enemies[type].Create();
+                    obj.transform.position = new Vector3(maxRight + 2, Random.Range(-4.0f, 4.0f), 0);
+                    obj.transform.rotation = Quaternion.identity;
                 }
                 spawnCount++;
                 remainEnemy++;
@@ -146,7 +152,6 @@ public class GameManager : MonoBehaviour
     
     public void ClearPanelActiveAfter1Sec()
     {
-        print($"ClearPanelActiveAfter1Sec");
         coverPanel.SetActive(true);
         GameDataSctipt.instance.AddStage();
         Invoke("ClearPanelActive",1);

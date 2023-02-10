@@ -51,7 +51,10 @@ public class PlayerScript : MonoBehaviour
                 Vector3 vec = new Vector3(transform.position.x + 1.12f, 
                     transform.position.y - 0.17f, transform.position.z);
                 Instantiate(shot, vec , Quaternion.identity);
-                GameObject shotObj = Instantiate(shot, vec, quaternion.identity);
+                //GameObject shotObj = Instantiate(shot, vec, quaternion.identity);
+                GameObject shotObj = ObjectPoolManager.instance.playerShot.Create();
+                shotObj.transform.position = vec;
+                shotObj.transform.rotation = Quaternion.identity;
                 ShotScript shotScript = shotObj.GetComponent<ShotScript>();
                 shotScript.dmg = dmg;
             }
@@ -98,13 +101,37 @@ public class PlayerScript : MonoBehaviour
             GameDataSctipt.instance.AddCoin(coinScript.coinSize);
             //GameManager.instance.coinText.text = GameManager.instance.coinInGame.ToString();
             GameManager.instance.coinText.text = GameDataSctipt.instance.GetCoin().ToString();
-            Destroy(col.gameObject);
+            //Destroy(col.gameObject);
+            coinScript.DestroyGameObject();
         }
-        else if (col.tag.Equals("Asteroid") || col.tag.Equals("Enemy") || col.tag.Equals("EnemyShot"))
+        else if (col.tag.Equals("Asteroid"))
         {
             GameManager.instance.isAlive = false;
             Destroy(Instantiate(explosion, transform.position, quaternion.identity),1f);
-            Destroy(col.gameObject);
+            ObjectPoolManager.instance.asteroid.Destroy(col.gameObject);
+            //Destroy(col.gameObject);
+            Destroy(gameObject);
+            //GameManager.instance.retryPanel.SetActive(true);
+            GameManager.instance.RetryPanelSetActiveAfter1Sec();
+        }
+        else if (col.tag.Equals("Enemy"))
+        {
+            GameManager.instance.isAlive = false;
+            Destroy(Instantiate(explosion, transform.position, quaternion.identity),1f);
+            //Destroy(col.gameObject);
+            EnemyScript enemyScript = col.GetComponent<EnemyScript>();
+            enemyScript.DestroyGameObject();
+            Destroy(gameObject);
+            //GameManager.instance.retryPanel.SetActive(true);
+            GameManager.instance.RetryPanelSetActiveAfter1Sec();
+        }
+        else if (col.tag.Equals("EnemyShot"))
+        {
+            GameManager.instance.isAlive = false;
+            Destroy(Instantiate(explosion, transform.position, quaternion.identity),1f);
+            //Destroy(col.gameObject);
+            EnemyShotScript enemyShotScript = col.GetComponent<EnemyShotScript>();
+            enemyShotScript.DestroyGameObject();
             Destroy(gameObject);
             //GameManager.instance.retryPanel.SetActive(true);
             GameManager.instance.RetryPanelSetActiveAfter1Sec();

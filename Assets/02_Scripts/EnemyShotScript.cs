@@ -16,8 +16,8 @@ public class EnemyShotScript : MonoBehaviour
         transform.Translate(Vector3.left * speed * Time.deltaTime);
     }
 
-    private void OnBecameInvisible()
+    public void DestroyGameObject()
     {
-        Destroy(gameObject);
+        ObjectPoolManager.instance.enemyShot.Destroy(gameObject);
     }
 }

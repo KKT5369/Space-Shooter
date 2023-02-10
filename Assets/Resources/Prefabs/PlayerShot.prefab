@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8602310449891572492}
   m_Layer: 9
   m_Name: PlayerShot
-  m_TagString: Untagged
+  m_TagString: PlayerShot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -149,3 +149,5 @@ MonoBehaviour:
   shotEffect: {fileID: 3502577083768168406, guid: c9cd22c5de988824b932da8556a4832e, type: 3}
   explosion: {fileID: 938337178186088826, guid: 40dea867fc0f1944296df5c53c2199a2, type: 3}
   coin: {fileID: 6573422650838493150, guid: 23e02a5f14304f143ba297696c300dfd, type: 3}
+  speed: 10
+  dmg: 0

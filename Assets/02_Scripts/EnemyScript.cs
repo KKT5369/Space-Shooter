@@ -42,7 +42,10 @@ public class EnemyScript : MonoBehaviour
         time += Time.deltaTime;
         if (time > maxShotTime)
         {
-            GameObject shotObj =  Instantiate(enemyShot, transform.position, quaternion.identity);
+            //GameObject shotObj =  Instantiate(enemyShot, transform.position, quaternion.identity);
+            GameObject shotObj = ObjectPoolManager.instance.enemyShot.Create();
+            shotObj.transform.position = transform.position;
+            shotObj.transform.rotation = Quaternion.identity;
             EnemyShotScript shotScript = shotObj.GetComponent<EnemyShotScript>();
             shotScript.speed = shotSpeed;
             time = 0;
@@ -53,6 +56,7 @@ public class EnemyScript : MonoBehaviour
     public void DestroyGameObject()
     {
         GameManager.instance.remainEnemy--;
-        Destroy(gameObject);
+        //Destroy(gameObject);
+        ObjectPoolManager.instance.enemies[type].Destroy(gameObject);
     }
 }

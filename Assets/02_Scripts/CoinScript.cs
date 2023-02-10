@@ -12,9 +12,9 @@ public class CoinScript : MonoBehaviour
     {
         transform.Translate(Vector3.left * speed * Time.deltaTime);
     }
-
-    private void OnBecameInvisible()
+    
+    public void DestroyGameObject()
     {
-        Destroy(gameObject);
+        ObjectPoolManager.instance.coin.Destroy(gameObject);
     }
 }
