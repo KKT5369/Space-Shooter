@@ -36,7 +36,7 @@ public class ShotScript : MonoBehaviour
                 GameObject explosionObject = ObjectPoolManager.instance.explosion.Create();
                 explosionObject.transform.position = transform.position;
                 explosionObject.transform.rotation = Quaternion.identity;
-                ExplosionScript explosionScript = shotGameObject.GetComponent<ExplosionScript>();
+                ExplosionScript explosionScript = explosionObject.GetComponent<ExplosionScript>();
                 explosionScript.InitTime();
                 Vector3 randomPos = new Vector3(Random.Range(-0.1f, 0.1f), Random.Range(-0.1f, 0.1f),0);
                 //GameObject coinObj = Instantiate(coin, transform.position + randomPos, Quaternion.identity);
@@ -79,6 +79,38 @@ public class ShotScript : MonoBehaviour
                 coinScript.coinSize = enemyScript.coin;
                 //Destroy(col.gameObject);
                 enemyScript.DestroyGameObject();
+            }
+            //Destroy(Instantiate(shotEffect, transform.position, Quaternion.identity),1f);
+            //Destroy(gameObject);
+            ObjectPoolManager.instance.playerShot.Destroy(gameObject);
+        }
+        else if(col.tag.Equals("Boss"))
+        {
+            
+            BossScript bossScript = col.gameObject.GetComponent<BossScript>();
+            bossScript.hp -= dmg;
+            GameObject shotGameObject = ObjectPoolManager.instance.shotEffect.Create();
+            shotGameObject.transform.position = transform.position;
+            shotGameObject.transform.rotation = Quaternion.identity;
+            ShotEffectScript shotEffectScript = shotGameObject.GetComponent<ShotEffectScript>();
+            shotEffectScript.InitTime();
+            if (bossScript.hp <= 0)
+            {
+                //Destroy(Instantiate(explosion, transform.position, quaternion.identity),1f);
+                GameObject explosionObject = ObjectPoolManager.instance.explosion.Create();
+                explosionObject.transform.position = transform.position;
+                explosionObject.transform.rotation = Quaternion.identity;
+                ExplosionScript explosionScript = explosionObject.GetComponent<ExplosionScript>();
+                explosionScript.InitTime();
+                Vector3 randomPos = new Vector3(Random.Range(-0.1f, 0.1f), Random.Range(-0.1f, 0.1f),0);
+                //GameObject coinObj = Instantiate(coin, transform.position + randomPos, Quaternion.identity);
+                GameObject coinObj = ObjectPoolManager.instance.coin.Create();
+                coinObj.transform.position = transform.position + randomPos;
+                coinObj.transform.rotation = Quaternion.identity;
+                CoinScript coinScript = coinObj.GetComponent<CoinScript>();
+                coinScript.coinSize = bossScript.coin;
+                //Destroy(col.gameObject);
+                bossScript.DestroyGameObject();
             }
             //Destroy(Instantiate(shotEffect, transform.position, Quaternion.identity),1f);
             //Destroy(gameObject);

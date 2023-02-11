@@ -376,6 +376,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b911a801b247524293b24861a446e79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyWaves: []
+  enemies: []
   coin: 0
 --- !u!4 &63366633
 Transform:
@@ -1673,6 +1675,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e49b975a1bbd7424daef4f1ad3572278, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bossObj: {fileID: 3990498566917992090, guid: 9cc18fa1a5dd1114d8f710fbcdf5544e, type: 3}
   enemyWavePrefabs:
   - {fileID: 7886165216371542658, guid: d39e9fa1d13402143a46af2a8a13b111, type: 3}
   - {fileID: 1589903841199656773, guid: 3432f8043af0ff24ba12ef4259bbaa38, type: 3}
@@ -1710,6 +1713,10 @@ MonoBehaviour:
   stageClear: 0
   stageInGame: 0
   isAlive: 1
+  bossStage: 0
+  bossSpwan: 0
+  asteroidTime: 0
+  asteroidSpawnTime: 3
 --- !u!4 &538992174
 Transform:
   m_ObjectHideFlags: 0
@@ -2667,7 +2674,7 @@ MonoBehaviour:
   explosion: {fileID: 938337178186088826, guid: 40dea867fc0f1944296df5c53c2199a2, type: 3}
   shot: {fileID: 7041854449019266588, guid: fff7ea58062c01945920e0e1c710c61d, type: 3}
   speed: 5
-  dmg: 10
+  dmg: 22
   spr: {fileID: 0}
   shotMax: 0.2
 --- !u!50 &878983432
@@ -3569,6 +3576,7 @@ MonoBehaviour:
   coinPrefab: {fileID: 6573422650838493150, guid: 23e02a5f14304f143ba297696c300dfd, type: 3}
   shotEffectPrefab: {fileID: 3502577083768168406, guid: c9cd22c5de988824b932da8556a4832e, type: 3}
   explosionPrefab: {fileID: 938337178186088826, guid: 40dea867fc0f1944296df5c53c2199a2, type: 3}
+  bossShotPrefab: {fileID: 491415503834354428, guid: 315ea8746c9752d40b977badb5ecc641, type: 3}
 --- !u!4 &1377861659
 Transform:
   m_ObjectHideFlags: 0

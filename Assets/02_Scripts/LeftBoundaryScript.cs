@@ -22,6 +22,11 @@ public class LeftBoundaryScript : MonoBehaviour
             EnemyShotScript enemyShotScript = col.GetComponent<EnemyShotScript>();
             enemyShotScript.DestroyGameObject();;
         }
+        else if (col.tag == "BossShot")
+        {
+            BossShotSctipt bossShotSctipt = col.GetComponent<BossShotSctipt>();
+            bossShotSctipt.DestroyGameObject();;
+        }
         else if (col.tag == "Item")
         {
             CoinScript coinScript = col.GetComponent<CoinScript>();

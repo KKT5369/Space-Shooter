@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public GameObject bossObj;
     public List<GameObject> enemyWavePrefabs;
     public List<EnemyWave> enemyWaves;
     public int spawnIndex;
@@ -39,6 +40,8 @@ public class GameManager : MonoBehaviour
     public bool stageClear = false;
     public int stageInGame;
     public bool isAlive = true;
+    public bool bossStage = false;
+    public bool bossSpwan = false;
     
     private void Awake()
     {
@@ -73,8 +76,17 @@ public class GameManager : MonoBehaviour
         remainEnemy = 0;
         spawnIndex = 0;
         spawnTime = 0;
-        
-        SpawnEnemyWave();
+
+        bossStage = false;
+        bossSpwan = false;
+        if (stageInGame % 5 == 0)
+        {
+            bossStage = true;
+        }
+        else
+        {
+            SpawnEnemyWave();
+        }
     }
 
     public void SpawnEnemyWave()
@@ -110,7 +122,25 @@ public class GameManager : MonoBehaviour
         asteroidTime += Time.deltaTime;
         if (time > spawnTime)
         {
-            if (spawnIndex < enemyWaves.Count)
+            if (bossStage == true)
+            {
+                if (bossSpwan == false)
+                {
+                    remainEnemy++;
+                    GameObject boss = Instantiate(bossObj, new Vector3(10, 0, 0), Quaternion.identity);
+                    BossScript bossScript = boss.GetComponent<BossScript>();
+                    float hp = GameDataSctipt.instance.GetBossHp(stageInGame);
+                    float coin = GameDataSctipt.instance.GetBossCoin(stageInGame);
+                    bossScript.Init(hp,coin);
+                    bossSpwan = true;
+                }
+                if (remainEnemy <= 0 && stageClear == false && isAlive)
+                {
+                    stageClear = true;
+                    ClearPanelActiveAfter1Sec();
+                }
+            }
+            else if (spawnIndex < enemyWaves.Count)
             {
                 SpawnEnemyWave();
             }

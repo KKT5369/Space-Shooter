@@ -9,6 +9,8 @@ TagManager:
   - Item
   - EnemyShot
   - PlayerShot
+  - Boss
+  - BossShot
   layers:
   - Default
   - TransparentFX

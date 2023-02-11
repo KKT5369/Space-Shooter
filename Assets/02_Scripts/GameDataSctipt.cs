@@ -236,4 +236,12 @@ public class GameDataSctipt : MonoBehaviour
     {
         return 2 * stage;
     }
+    public float GetBossHp(int stage)
+    {
+        return 10 * stage;
+    }
+    public float GetBossCoin(int stage)
+    {
+        return 20 * stage;
+    }
 }

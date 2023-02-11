@@ -136,5 +136,27 @@ public class PlayerScript : MonoBehaviour
             //GameManager.instance.retryPanel.SetActive(true);
             GameManager.instance.RetryPanelSetActiveAfter1Sec();
         }
+        else if (col.tag.Equals("BossShot"))
+        {
+            GameManager.instance.isAlive = false;
+            Destroy(Instantiate(explosion, transform.position, quaternion.identity),1f);
+            //Destroy(col.gameObject);
+            BossShotSctipt bossShotSctipt = col.GetComponent<BossShotSctipt>();
+            bossShotSctipt.DestroyGameObject();
+            Destroy(gameObject);
+            //GameManager.instance.retryPanel.SetActive(true);
+            GameManager.instance.RetryPanelSetActiveAfter1Sec();
+        }
+        else if (col.tag.Equals("Boss"))
+        {
+            GameManager.instance.isAlive = false;
+            Destroy(Instantiate(explosion, transform.position, quaternion.identity),1f);
+            //Destroy(col.gameObject);
+            BossScript bossScript = col.GetComponent<BossScript>();
+            bossScript.DestroyGameObject();
+            Destroy(gameObject);
+            //GameManager.instance.retryPanel.SetActive(true);
+            GameManager.instance.RetryPanelSetActiveAfter1Sec();
+        }
     }
 }
