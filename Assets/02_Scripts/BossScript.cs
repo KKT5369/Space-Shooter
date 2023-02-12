@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Game;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -47,6 +48,10 @@ public class BossScript : MonoBehaviour
     public Vector3 hpTargetScale;
     private RandomMoveType randomMoveState = RandomMoveType.START;
     private Vector3 randomPos;
+    
+    float destroyTime = 0;
+    bool destroyFlag = false;
+    float destroyMaxTime = 0.3f;
 
     public void Init(double hp, double coin)
     {
@@ -54,6 +59,11 @@ public class BossScript : MonoBehaviour
         this.coin = coin;
         maxHp = hp;
         hpTargetScale = new Vector3(1, 1, 1);
+        
+        destroyTime = 0;
+        destroyFlag = false;
+        Collider2D col = GetComponent<Collider2D>();
+        col.enabled = true;
     }
     void Start()
     {
@@ -125,16 +135,55 @@ public class BossScript : MonoBehaviour
             }
         }
 
+        if (hp < 0)
+        {
+            hp = 0;
+        }
         double result = hp / maxHp;
         hpTargetScale = new Vector3((float)result, 1, 1);
         hpTransform.transform.localScale = Vector3.Lerp(hpTransform.transform.localScale,hpTargetScale, Time.deltaTime * 3);
+        
+        if (destroyFlag == true)
+        {
+            destroyTime += Time.deltaTime;
+            if (destroyTime > destroyMaxTime)
+            {
+                destroyFlag = false;
+                Destroy(gameObject);
+                //Destroy(Instantiate(explosion, transform.position, quaternion.identity),1f);
+                GameObject explosionObject = ObjectPoolManager.instance.explosion.Create();
+                explosionObject.transform.position = transform.position;
+                explosionObject.transform.rotation = Quaternion.identity;
+                ExplosionScript explosionScript = explosionObject.GetComponent<ExplosionScript>();
+                explosionScript.InitTime();
+                
+                string str = Util.GetBigNumber(maxHp);
+                GameManager.instance.CreateFloatingText(str,transform.position);
+                
+                Vector3 randomPos = new Vector3(Random.Range(-0.1f, 0.1f), Random.Range(-0.1f, 0.1f),0);
+                //GameObject coinObj = Instantiate(coin, transform.position + randomPos, Quaternion.identity);
+                GameObject coinObj = ObjectPoolManager.instance.coin.Create();
+                coinObj.transform.position = transform.position + randomPos;
+                coinObj.transform.rotation = Quaternion.identity;
+                CoinScript coinScript = coinObj.GetComponent<CoinScript>();
+                coinScript.coinSize = coin;
+                AudioManager.instance.PlaySound(Sound.Explosion);
+            }
+        }
     }
     
-    public void DestroyGameObject()
+    public void DestroyGameObject(int type = 0)
     {
         GameManager.instance.remainEnemy--;
-        Destroy(gameObject);
-        //Destroy(gameObject);
-        //ObjectPoolManager.instance.enemies[type].Destroy(gameObject);
+        if (type == 0)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            destroyFlag = true;
+            Collider2D col = GetComponent<Collider2D>();
+            col.enabled = false;
+        }
     }
 }

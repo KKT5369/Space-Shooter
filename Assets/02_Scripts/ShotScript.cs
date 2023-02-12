@@ -33,26 +33,9 @@ public class ShotScript : MonoBehaviour
             shotEffectScript.InitTime();
             if (asteroidScript.hp <= 0)
             {
-                //Destroy(Instantiate(explosion, transform.position, quaternion.identity),1f);
-                GameObject explosionObject = ObjectPoolManager.instance.explosion.Create();
-                explosionObject.transform.position = transform.position;
-                explosionObject.transform.rotation = Quaternion.identity;
-                ExplosionScript explosionScript = explosionObject.GetComponent<ExplosionScript>();
-                explosionScript.InitTime();
-
-                string str = Util.GetBigNumber(asteroidScript.maxHp);
-                GameManager.instance.CreateFloatingText(str,asteroidScript.transform.position);
+                asteroidScript.hp = 0;
+                asteroidScript.DestroyGameObject(1);
                 
-                Vector3 randomPos = new Vector3(Random.Range(-0.1f, 0.1f), Random.Range(-0.1f, 0.1f),0);
-                //GameObject coinObj = Instantiate(coin, transform.position + randomPos, Quaternion.identity);
-                GameObject coinObj = ObjectPoolManager.instance.coin.Create();
-                coinObj.transform.position = transform.position + randomPos;
-                coinObj.transform.rotation = Quaternion.identity;
-                CoinScript coinScript = coinObj.GetComponent<CoinScript>();
-                coinScript.coinSize = asteroidScript.coin;
-                Destroy(col.gameObject);
-                asteroidScript.DestroyGameObject();
-                AudioManager.instance.PlaySound(Sound.Explosion);
             }
             //Destroy(Instantiate(shotEffect, transform.position, Quaternion.identity),1f);
             //Destroy(gameObject);
@@ -70,26 +53,8 @@ public class ShotScript : MonoBehaviour
             shotEffectScript.InitTime();
             if (enemyScript.hp <= 0)
             {
-                //Destroy(Instantiate(explosion, transform.position, quaternion.identity),1f);
-                GameObject explosionObject = ObjectPoolManager.instance.explosion.Create();
-                explosionObject.transform.position = transform.position;
-                explosionObject.transform.rotation = Quaternion.identity;
-                ExplosionScript explosionScript = explosionObject.GetComponent<ExplosionScript>();
-                explosionScript.InitTime();
-                
-                string str = Util.GetBigNumber(enemyScript.maxHp);
-                GameManager.instance.CreateFloatingText(str,enemyScript.transform.position);
-                
-                Vector3 randomPos = new Vector3(Random.Range(-0.1f, 0.1f), Random.Range(-0.1f, 0.1f),0);
-                //GameObject coinObj = Instantiate(coin, transform.position + randomPos, Quaternion.identity);
-                GameObject coinObj = ObjectPoolManager.instance.coin.Create();
-                coinObj.transform.position = transform.position + randomPos;
-                coinObj.transform.rotation = Quaternion.identity;
-                CoinScript coinScript = coinObj.GetComponent<CoinScript>();
-                coinScript.coinSize = enemyScript.coin;
-                //Destroy(col.gameObject);
-                enemyScript.DestroyGameObject();
-                AudioManager.instance.PlaySound(Sound.Explosion);
+                enemyScript.hp = 0;
+                enemyScript.DestroyGameObject(1);
             }
             //Destroy(Instantiate(shotEffect, transform.position, Quaternion.identity),1f);
             //Destroy(gameObject);
@@ -97,7 +62,6 @@ public class ShotScript : MonoBehaviour
         }
         else if(col.tag.Equals("Boss"))
         {
-            
             BossScript bossScript = col.gameObject.GetComponent<BossScript>();
             bossScript.hp -= dmg;
             GameObject shotGameObject = ObjectPoolManager.instance.shotEffect.Create();
@@ -107,26 +71,8 @@ public class ShotScript : MonoBehaviour
             shotEffectScript.InitTime();
             if (bossScript.hp <= 0)
             {
-                //Destroy(Instantiate(explosion, transform.position, quaternion.identity),1f);
-                GameObject explosionObject = ObjectPoolManager.instance.explosion.Create();
-                explosionObject.transform.position = transform.position;
-                explosionObject.transform.rotation = Quaternion.identity;
-                ExplosionScript explosionScript = explosionObject.GetComponent<ExplosionScript>();
-                explosionScript.InitTime();
-                
-                string str = Util.GetBigNumber(bossScript.maxHp);
-                GameManager.instance.CreateFloatingText(str,bossScript.transform.position);
-                
-                Vector3 randomPos = new Vector3(Random.Range(-0.1f, 0.1f), Random.Range(-0.1f, 0.1f),0);
-                //GameObject coinObj = Instantiate(coin, transform.position + randomPos, Quaternion.identity);
-                GameObject coinObj = ObjectPoolManager.instance.coin.Create();
-                coinObj.transform.position = transform.position + randomPos;
-                coinObj.transform.rotation = Quaternion.identity;
-                CoinScript coinScript = coinObj.GetComponent<CoinScript>();
-                coinScript.coinSize = bossScript.coin;
-                //Destroy(col.gameObject);
-                bossScript.DestroyGameObject();
-                AudioManager.instance.PlaySound(Sound.Explosion);
+                bossScript.hp = 0;
+                bossScript.DestroyGameObject(1);
             }
             //Destroy(Instantiate(shotEffect, transform.position, Quaternion.identity),1f);
             //Destroy(gameObject);

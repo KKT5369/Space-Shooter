@@ -66,7 +66,15 @@ public class MenuManager : MonoBehaviour
 
     public void GoGameScene()
     {
-        SceneManager.LoadScene("GameScene");
+        if (GameDataSctipt.instance.CanSelect())
+        {
+            SceneManager.LoadScene("GameScene");
+        }
+        else
+        {
+            GameDataSctipt.instance.select = 0;
+            SceneManager.LoadScene("GameScene");
+        }
     }
 
     public void Quit()

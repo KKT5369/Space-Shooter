@@ -245,4 +245,16 @@ public class GameDataSctipt : MonoBehaviour
     {
         return 20d * stage;
     }
+
+    public bool CanSelect()
+    {
+        if (ships[select].GetLock() == 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }
