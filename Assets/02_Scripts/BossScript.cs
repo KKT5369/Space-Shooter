@@ -41,14 +41,14 @@ public class BossScript : MonoBehaviour
     public List<State> orders;
     public float time = 0;
     public int index;
-    public float hp;
-    public float coin;
-    public float maxHp;
+    public double hp;
+    public double coin;
+    public double maxHp;
     public Vector3 hpTargetScale;
     private RandomMoveType randomMoveState = RandomMoveType.START;
     private Vector3 randomPos;
 
-    public void Init(float hp, float coin)
+    public void Init(double hp, double coin)
     {
         this.hp = hp;
         this.coin = coin;
@@ -124,7 +124,9 @@ public class BossScript : MonoBehaviour
                 transform.position = Vector3.Lerp(transform.position, randomPos, Time.deltaTime * 10);
             }
         }
-        hpTargetScale = new Vector3(hp / maxHp, 1, 1);
+
+        double result = hp / maxHp;
+        hpTargetScale = new Vector3((float)result, 1, 1);
         hpTransform.transform.localScale = Vector3.Lerp(hpTransform.transform.localScale,hpTargetScale, Time.deltaTime * 3);
     }
     

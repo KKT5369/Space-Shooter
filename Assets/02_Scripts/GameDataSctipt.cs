@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Game;
 using UnityEngine;
@@ -11,7 +12,7 @@ public class GameDataSctipt : MonoBehaviour
     public ShipData[] ships;
     public EnemyWave[] enemyWaves;
     public Enemy[] enemies;
-    public float coin;
+    public double coin;
     private int _select;
     private int stage;
 
@@ -64,11 +65,11 @@ public class GameDataSctipt : MonoBehaviour
         {
             string[] rows = lines[i].Split('\t');
             int id = int.Parse(rows[0]);
-            float base_dmg = float.Parse(rows[1]);
+            double base_dmg = double.Parse(rows[1]);
             string name = rows[2];
             string kName = rows[3];
-            float unlockCoin = float.Parse(rows[4]);
-            float baseUpgradeCoin = float.Parse(rows[5]);
+            double unlockCoin = double.Parse(rows[4]);
+            double baseUpgradeCoin = double.Parse(rows[5]);
             int chr_level = PlayerPrefs.GetInt("chr_level" + (i-1), 1);
             int locked;
             if (i == 1)
@@ -108,11 +109,11 @@ public class GameDataSctipt : MonoBehaviour
             string[] rows = lines[i].Split('\t');
             int type = int.Parse(rows[0]);
             string name = rows[1];
-            float hp = float.Parse(rows[2]);
+            double hp = double.Parse(rows[2]);
             float speed = float.Parse(rows[3]);
             float maxShotTime = float.Parse(rows[4]);
             float shotSpeed = float.Parse(rows[5]);
-            float coin = float.Parse(rows[6]);
+            double coin = double.Parse(rows[6]);
             
             enemies[i - 1] = new Enemy(type,name,hp,speed,maxShotTime,shotSpeed,coin);
         }
@@ -133,24 +134,24 @@ public class GameDataSctipt : MonoBehaviour
         }
     }
     
-    public float GetCoin()
+    public double GetCoin()
     {
-        coin = PlayerPrefs.GetFloat("TotalCoin",0);
+        coin = Util.GetDouble("TotalCoin", 0);
         return coin;
     }
 
-    public void AddCoinInMenu(float coin)
+    public void AddCoinInMenu(double coin)
     {
         this.coin += coin;
-        PlayerPrefs.SetFloat("TotalCoin", this.coin);
+        Util.SetDouble("TotalCoin", this.coin);
         MenuManager.instance.coinImage.gameObject.SetActive(true);
         MenuManager.instance.coinText.gameObject.SetActive(true);
     }
     
-    public void AddCoin(float coin)
+    public void AddCoin(double coin)
     {
         this.coin += coin;
-        PlayerPrefs.SetFloat("TotalCoin", this.coin);
+        Util.SetDouble("TotalCoin", this.coin);
         
     }
 
@@ -219,29 +220,29 @@ public class GameDataSctipt : MonoBehaviour
         return list;
     }
 
-    public float GetEnemyHp(float base_hp, int stage)
+    public double GetEnemyHp(double base_hp, double stage)
     {
         return base_hp * stage;
     }
-    public float GetEnemyCoin(float base_coin, int stage)
+    public double GetEnemyCoin(double base_coin, int stage)
     {
         return base_coin * stage;
     }
     
-    public float GetAsteroidHp(int stage)
+    public double GetAsteroidHp(int stage)
     {
-        return 1 * stage;
+        return 1d * stage;
     }
-    public float GetAsteroidCoin(int stage)
+    public double GetAsteroidCoin(int stage)
     {
-        return 2 * stage;
+        return 2d * stage;
     }
-    public float GetBossHp(int stage)
+    public double GetBossHp(int stage)
     {
-        return 10 * stage;
+        return 10d * stage;
     }
-    public float GetBossCoin(int stage)
+    public double GetBossCoin(int stage)
     {
-        return 20 * stage;
+        return 20d * stage;
     }
 }

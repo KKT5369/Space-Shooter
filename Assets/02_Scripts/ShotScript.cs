@@ -9,7 +9,7 @@ public class ShotScript : MonoBehaviour
     [SerializeField] private GameObject explosion;
     [SerializeField] private GameObject coin;
     public float speed = 10;
-    public float dmg;
+    public double dmg;
     void Start()
     {
         

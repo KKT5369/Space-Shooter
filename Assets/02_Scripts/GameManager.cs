@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
     public GameObject astroid;
     public List<GameObject> enemies;
     public float time = 0;
-    public float coinInGame;
+    public double coinInGame;
     public float maxRight;
     public int spawnCount = 0;
     public int spawnMax = 3;
@@ -105,8 +105,8 @@ public class GameManager : MonoBehaviour
             enemyObj.transform.rotation = Quaternion.identity;
             EnemyScript enemyScript = enemyObj.GetComponent<EnemyScript>();
             Enemy enemy = GameDataSctipt.instance.enemies[enemyType];
-            float cur_hp = GameDataSctipt.instance.GetEnemyHp(enemy.hp, stageInGame);
-            float cur_coin = GameDataSctipt.instance.GetEnemyHp(enemy.coin, stageInGame);
+            double cur_hp = GameDataSctipt.instance.GetEnemyHp(enemy.hp, stageInGame);
+            double cur_coin = GameDataSctipt.instance.GetEnemyHp(enemy.coin, stageInGame);
             enemyScript.Init(enemyType,enemy.name,cur_hp,enemy.speed,enemy.maxShotTime,enemy.shotSpeed,cur_coin);
         }
         remainEnemy += count;
@@ -128,8 +128,8 @@ public class GameManager : MonoBehaviour
                     remainEnemy++;
                     GameObject boss = Instantiate(bossObj, new Vector3(10, 0, 0), Quaternion.identity);
                     BossScript bossScript = boss.GetComponent<BossScript>();
-                    float hp = GameDataSctipt.instance.GetBossHp(stageInGame);
-                    float coin = GameDataSctipt.instance.GetBossCoin(stageInGame);
+                    double hp = GameDataSctipt.instance.GetBossHp(stageInGame);
+                    double coin = GameDataSctipt.instance.GetBossCoin(stageInGame);
                     bossScript.Init(hp,coin);
                     bossSpwan = true;
                 }
@@ -158,8 +158,8 @@ public class GameManager : MonoBehaviour
             obj.transform.position = new Vector3(maxRight + 2, Random.Range(-4.0f, 4.0f), 0);
             obj.transform.rotation = Quaternion.identity;
             AsteroidScript asteroidScript = obj.GetComponent<AsteroidScript>();
-            float hp = GameDataSctipt.instance.GetAsteroidHp(stageInGame);
-            float coin = GameDataSctipt.instance.GetAsteroidCoin(stageInGame);
+            double hp = GameDataSctipt.instance.GetAsteroidHp(stageInGame);
+            double coin = GameDataSctipt.instance.GetAsteroidCoin(stageInGame);
             asteroidScript.Init(hp,coin);
             asteroidTime = 0;
         }

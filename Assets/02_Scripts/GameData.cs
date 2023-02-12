@@ -7,6 +7,31 @@ namespace Game
 
     public class Util
     {
+        public static void SetDouble(string key, double value)
+        {
+            PlayerPrefs.SetString(key, DoubleToString(value));
+        }
+        public static double GetDouble(string key, double defaultValue)
+        {
+            string defaultVal = DoubleToString(defaultValue);
+            return StringToDouble(PlayerPrefs.GetString(key, defaultVal));
+        }
+        public static double GetDouble(string key)
+        {
+            return GetDouble(key, 0d);
+        }
+
+        private static string DoubleToString(double target)
+        {
+            return target.ToString("G17");
+        }
+        private static double StringToDouble(string target)
+        {
+            if (string.IsNullOrEmpty(target))
+                return 0d;
+
+            return double.Parse(target);
+        }
         public static void CreatePopup(string title, string detail, OnClick yesAction, OnClick noAction)
         {
             GameObject obj = Resources.Load<GameObject>("Prefabs/Popup");
@@ -66,20 +91,20 @@ namespace Game
     public struct ShipData
     {
         public int id;
-        public float base_dmg;
+        public double base_dmg;
         public string name;
         public string kName;
         public int chr_level;
         public int locked;
-        public float dmg;
-        public float nextDmg;
-        public float unlockCoin;
-        public float upgradeCoin;
-        public float base_upgradeCoin;
+        public double dmg;
+        public double nextDmg;
+        public double unlockCoin;
+        public double upgradeCoin;
+        public double base_upgradeCoin;
 
-        public ShipData(int id,float base_dmg,string name,string kName,float unlockCoin,float base_upgradeCoin,
+        public ShipData(int id,double base_dmg,string name,string kName,double unlockCoin,double base_upgradeCoin,
                         int chr_level = 1,int locked = 1,
-                        float dmg = 1,float nextDmg = 1,float upgradeCoin = 100)
+                        double dmg = 1,double nextDmg = 1,double upgradeCoin = 100)
         {
             this.id = id;
             this.base_dmg = base_dmg;
@@ -172,13 +197,13 @@ namespace Game
     {
         public int id;
         public string name;
-        public float hp;
+        public double hp;
         public float speed;
         public float maxShotTime;
         public float shotSpeed;
-        public float coin;
+        public double coin;
 
-        public Enemy(int id, string name, float hp,float speed,float maxShotTime,float shotSpeed,float coin)
+        public Enemy(int id, string name, double hp,float speed,float maxShotTime,float shotSpeed,double coin)
         {
             this.id = id;
             this.name = name;

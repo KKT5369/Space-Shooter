@@ -10,9 +10,9 @@ public class AsteroidScript : MonoBehaviour
     public Transform hpBackTransform;
     private float speed = 6;
     public float rotSpeed = 5;
-    public float hp = 10;
-    public float coin = 2;
-    public float maxHp;
+    public double hp = 10;
+    public double coin = 2;
+    public double maxHp;
     private Vector3 hpTargetScale;
     private Vector3 hpOrigin;
 
@@ -27,7 +27,7 @@ public class AsteroidScript : MonoBehaviour
         hpOrigin = hpTransform.localPosition;
     }
 
-    public void Init(float hp, float coin)
+    public void Init(double hp, double coin)
     {
         this.hp = hp;
         this.coin = coin;
@@ -44,7 +44,9 @@ public class AsteroidScript : MonoBehaviour
         //transform.position += Vector3.left * Time.deltaTime * speed;
         transform.Translate(Vector3.left * Time.deltaTime * speed, Space.World);
         transform.Rotate(new Vector3(0,0, Time.deltaTime * rotSpeed));
-        hpTargetScale = new Vector3(hp / maxHp, 1, 1);
+
+        double result = hp / maxHp;
+        hpTargetScale = new Vector3((float)result, 1, 1);
         hpTransform.transform.localScale = Vector3.Lerp(hpTransform.transform.localScale,hpTargetScale, Time.deltaTime * 3);
         hpTransform.rotation = Quaternion.identity;
         hpBackTransform.rotation = Quaternion.identity;

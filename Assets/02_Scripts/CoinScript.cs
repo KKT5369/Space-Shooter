@@ -6,7 +6,7 @@ using UnityEngine;
 public class CoinScript : MonoBehaviour
 {
     private float speed = 1.5f;
-    public float coinSize = 1;
+    public double coinSize = 1;
     private Transform playerTr;
     private void Start()
     {

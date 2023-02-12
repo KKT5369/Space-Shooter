@@ -12,14 +12,14 @@ public class EnemyScript : MonoBehaviour
     public float shotSpeed;
     public float time;
     public int type = 0;
-    public float hp = 3;
+    public double hp = 3;
     public float speed = 4;
-    public float coin = 0;
+    public double coin = 0;
     public string enemyName;
-    public float maxHp;
+    public double maxHp;
     private Vector3 hpTargetScale;
 
-    public void Init(int type, string name, float hp, float speed, float maxShotTime, float shotSpeed, float coin)
+    public void Init(int type, string name, double hp, float speed, float maxShotTime, float shotSpeed, double coin)
     {
         this.type = type;
         this.enemyName = name;
@@ -50,7 +50,8 @@ public class EnemyScript : MonoBehaviour
             time = 0;
         }
         transform.Translate(Vector3.left * speed * Time.deltaTime);
-        hpTargetScale = new Vector3(hp / maxHp, 1, 1);
+        double reuslt = hp / maxHp;
+        hpTargetScale = new Vector3((float)reuslt, 1, 1);
         hpTransform.transform.localScale = Vector3.Lerp(hpTransform.transform.localScale,hpTargetScale, Time.deltaTime * 3);
     }
 

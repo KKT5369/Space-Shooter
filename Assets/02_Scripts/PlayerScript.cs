@@ -14,7 +14,7 @@ public class PlayerScript : MonoBehaviour
     private Vector3 min, max;
     private Vector2 colSize;
     private Vector2 chrSize;
-    public float dmg;
+    public double dmg;
     public SpriteRenderer spr;
 
     void Start()

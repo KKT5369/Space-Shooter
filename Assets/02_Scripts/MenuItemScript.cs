@@ -19,14 +19,14 @@ public class MenuItemScript : MonoBehaviour
     public Text upgradeCoinText;
     
 
-    public void SetUI(string shipName,string shipLevel,string shipDmg,string shipNextDmg,int locked,float unlockCoin,float upgradeCoin)
+    public void SetUI(string shipName,string shipLevel,string shipDmg,string shipNextDmg,int locked,double unlockCoin,double upgradeCoin)
     {
         this.shipNameText.text = shipName;
         this.LevelText.text = shipLevel;
         this.dmgText.text = shipDmg;
         this.nextDmgText.text = shipNextDmg;
-        this.UnlockCoinText.text = unlockCoin.ToString();
-        this.upgradeCoinText.text = upgradeCoin + " Coins"; 
+        this.UnlockCoinText.text = Util.GetBigNumber(unlockCoin);
+        this.upgradeCoinText.text = Util.GetBigNumber(upgradeCoin) + " Coins"; 
         if (locked == 1)
         {
             unlockButton.gameObject.SetActive(true);
@@ -58,7 +58,7 @@ public class MenuItemScript : MonoBehaviour
         GameDataSctipt.instance.ExcuteUnlock(id);
         unlockButton.gameObject.SetActive(false);
         UnlockCoinText.gameObject.SetActive(false);
-        MenuManager.instance.coinText.text = GameDataSctipt.instance.GetCoin().ToString();
+        MenuManager.instance.coinText.text = Util.GetBigNumber(GameDataSctipt.instance.GetCoin());
     }
 
     public void PowerUpAction()
@@ -68,7 +68,7 @@ public class MenuItemScript : MonoBehaviour
             GameDataSctipt.instance.UpgradeAction(id);
             ShipData ship = GameDataSctipt.instance.ships[id];
             SetUI(ship.name, ship.chr_level.ToString(),ship.dmg.ToString(),ship.nextDmg.ToString(),ship.locked,ship.unlockCoin,ship.upgradeCoin);
-            MenuManager.instance.coinText.text = GameDataSctipt.instance.GetCoin().ToString();
+            MenuManager.instance.coinText.text = Util.GetBigNumber(GameDataSctipt.instance.GetCoin());
         }
         else
         {
