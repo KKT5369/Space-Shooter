@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FloationTextScript : MonoBehaviour
+public class FloationgTextScript : MonoBehaviour
 {
     public Text floatingText;
     private float time = 0;

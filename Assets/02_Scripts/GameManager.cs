@@ -274,7 +274,7 @@ public class GameManager : MonoBehaviour
         obj.transform.SetParent(canvasTr, false);
         obj.transform.position = pos;
         obj.GetComponent<Text>().text = text;
-        FloationTextScript floationTextScript = obj.GetComponent<FloationTextScript>();
+        FloationgTextScript floationTextScript = obj.GetComponent<FloationgTextScript>();
         floationTextScript.Init();
     }
 
