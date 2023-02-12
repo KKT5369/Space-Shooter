@@ -35,6 +35,7 @@ public class BossScript : MonoBehaviour
     }
     
     public Transform shotTr;
+    public Transform hpTransform;
     public float shotDelay;
     public float shotMax = 0.1f;
     public List<State> orders;
@@ -42,6 +43,8 @@ public class BossScript : MonoBehaviour
     public int index;
     public float hp;
     public float coin;
+    public float maxHp;
+    public Vector3 hpTargetScale;
     private RandomMoveType randomMoveState = RandomMoveType.START;
     private Vector3 randomPos;
 
@@ -49,6 +52,8 @@ public class BossScript : MonoBehaviour
     {
         this.hp = hp;
         this.coin = coin;
+        maxHp = hp;
+        hpTargetScale = new Vector3(1, 1, 1);
     }
     void Start()
     {
@@ -70,6 +75,8 @@ public class BossScript : MonoBehaviour
         orders.Add(new State(new Vector3(6,-3,0),1,MoveType.ATTACK));
         orders.Add(new State(new Vector3(6,-3,0),1,MoveType.RANDOM_MOVE));
         orders.Add(new State(new Vector3(6,-3,0),1,MoveType.ATTACK));
+        maxHp = hp;
+        hpTargetScale = new Vector3(1, 1, 1);
     }
 
     void Update()
@@ -117,6 +124,8 @@ public class BossScript : MonoBehaviour
                 transform.position = Vector3.Lerp(transform.position, randomPos, Time.deltaTime * 10);
             }
         }
+        hpTargetScale = new Vector3(hp / maxHp, 1, 1);
+        hpTransform.transform.localScale = Vector3.Lerp(hpTransform.transform.localScale,hpTargetScale, Time.deltaTime * 3);
     }
     
     public void DestroyGameObject()

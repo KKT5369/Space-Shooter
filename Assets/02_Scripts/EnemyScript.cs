@@ -7,6 +7,7 @@ using UnityEngine;
 public class EnemyScript : MonoBehaviour
 {
     public GameObject enemyShot;
+    public Transform hpTransform;
     public float maxShotTime;
     public float shotSpeed;
     public float time;
@@ -15,6 +16,8 @@ public class EnemyScript : MonoBehaviour
     public float speed = 4;
     public float coin = 0;
     public string enemyName;
+    public float maxHp;
+    private Vector3 hpTargetScale;
 
     public void Init(int type, string name, float hp, float speed, float maxShotTime, float shotSpeed, float coin)
     {
@@ -25,28 +28,13 @@ public class EnemyScript : MonoBehaviour
         this.maxShotTime = maxShotTime;
         this.shotSpeed = shotSpeed;
         this.coin = coin;
+        maxHp = hp;
+        hpTargetScale = new Vector3(1, 1, 1);
     }
-    // void Start()
-    // {
-    //     switch (type)
-    //     {
-    //         case 0:
-    //             hp = 10; speed = 1.2f; coin = 3;
-    //             maxShotTime = 3;
-    //             shotSpeed = 3;
-    //             break;
-    //         case 1:
-    //             hp = 20; speed = 1.5f; coin = 4;
-    //             maxShotTime = 2;
-    //             shotSpeed = 4;
-    //             break;
-    //         case 2:
-    //             hp = 50; speed = 2.5f; coin = 5;
-    //             maxShotTime = 5;
-    //             shotSpeed = 7;
-    //             break;
-    //     }
-    // }
+    void Start()
+    {
+        maxHp = hp;
+    }
 
     void Update()
     {
@@ -62,6 +50,8 @@ public class EnemyScript : MonoBehaviour
             time = 0;
         }
         transform.Translate(Vector3.left * speed * Time.deltaTime);
+        hpTargetScale = new Vector3(hp / maxHp, 1, 1);
+        hpTransform.transform.localScale = Vector3.Lerp(hpTransform.transform.localScale,hpTargetScale, Time.deltaTime * 3);
     }
 
     public void DestroyGameObject()
