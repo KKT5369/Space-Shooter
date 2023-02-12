@@ -57,6 +57,7 @@ public class PlayerScript : MonoBehaviour
                 shotObj.transform.rotation = Quaternion.identity;
                 ShotScript shotScript = shotObj.GetComponent<ShotScript>();
                 shotScript.dmg = dmg;
+                AudioManager.instance.PlaySound(Sound.PlayerShot);
             }
         }
     }
@@ -103,6 +104,7 @@ public class PlayerScript : MonoBehaviour
             GameManager.instance.coinText.text = GameDataSctipt.instance.GetCoin().ToString();
             //Destroy(col.gameObject);
             coinScript.DestroyGameObject();
+            AudioManager.instance.PlaySound(Sound.Coin);
         }
         else if (col.tag.Equals("Asteroid"))
         {
@@ -113,6 +115,7 @@ public class PlayerScript : MonoBehaviour
             Destroy(gameObject);
             //GameManager.instance.retryPanel.SetActive(true);
             GameManager.instance.RetryPanelSetActiveAfter1Sec();
+            AudioManager.instance.PlaySound(Sound.Explosion);
         }
         else if (col.tag.Equals("Enemy"))
         {
@@ -124,6 +127,7 @@ public class PlayerScript : MonoBehaviour
             Destroy(gameObject);
             //GameManager.instance.retryPanel.SetActive(true);
             GameManager.instance.RetryPanelSetActiveAfter1Sec();
+            AudioManager.instance.PlaySound(Sound.Explosion);
         }
         else if (col.tag.Equals("EnemyShot"))
         {
@@ -135,6 +139,7 @@ public class PlayerScript : MonoBehaviour
             Destroy(gameObject);
             //GameManager.instance.retryPanel.SetActive(true);
             GameManager.instance.RetryPanelSetActiveAfter1Sec();
+            AudioManager.instance.PlaySound(Sound.Explosion);
         }
         else if (col.tag.Equals("BossShot"))
         {
@@ -146,6 +151,7 @@ public class PlayerScript : MonoBehaviour
             Destroy(gameObject);
             //GameManager.instance.retryPanel.SetActive(true);
             GameManager.instance.RetryPanelSetActiveAfter1Sec();
+            AudioManager.instance.PlaySound(Sound.Explosion);
         }
         else if (col.tag.Equals("Boss"))
         {
@@ -157,6 +163,7 @@ public class PlayerScript : MonoBehaviour
             Destroy(gameObject);
             //GameManager.instance.retryPanel.SetActive(true);
             GameManager.instance.RetryPanelSetActiveAfter1Sec();
+            AudioManager.instance.PlaySound(Sound.Explosion);
         }
     }
 }

@@ -52,6 +52,7 @@ public class ShotScript : MonoBehaviour
                 coinScript.coinSize = asteroidScript.coin;
                 Destroy(col.gameObject);
                 asteroidScript.DestroyGameObject();
+                AudioManager.instance.PlaySound(Sound.Explosion);
             }
             //Destroy(Instantiate(shotEffect, transform.position, Quaternion.identity),1f);
             //Destroy(gameObject);
@@ -88,6 +89,7 @@ public class ShotScript : MonoBehaviour
                 coinScript.coinSize = enemyScript.coin;
                 //Destroy(col.gameObject);
                 enemyScript.DestroyGameObject();
+                AudioManager.instance.PlaySound(Sound.Explosion);
             }
             //Destroy(Instantiate(shotEffect, transform.position, Quaternion.identity),1f);
             //Destroy(gameObject);
@@ -124,6 +126,7 @@ public class ShotScript : MonoBehaviour
                 coinScript.coinSize = bossScript.coin;
                 //Destroy(col.gameObject);
                 bossScript.DestroyGameObject();
+                AudioManager.instance.PlaySound(Sound.Explosion);
             }
             //Destroy(Instantiate(shotEffect, transform.position, Quaternion.identity),1f);
             //Destroy(gameObject);

@@ -3,6 +3,17 @@ using UnityEngine;
 
 namespace Game
 {
+    public enum Music
+    {
+        Menu,
+        Play
+    };
+    public enum Sound
+    {
+        PlayerShot,
+        Explosion,
+        Coin
+    };
     public delegate void OnClick();
 
     public class Util

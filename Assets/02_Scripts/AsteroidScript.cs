@@ -19,8 +19,6 @@ public class AsteroidScript : MonoBehaviour
 
     private void Start()
     {
-        string str = Util.GetBigNumber(1001111);
-        print(str);
         maxHp = hp;
         hpTransform.rotation = Quaternion.identity;
         hpBackTransform.rotation = Quaternion.identity;

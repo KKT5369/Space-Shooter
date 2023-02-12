@@ -37,6 +37,7 @@ public class MenuManager : MonoBehaviour
             obj.SetActive(true);
             curItem.shipImage.sprite = Resources.Load<Sprite>(ship.GetImagName());
             GetComponent<ScrollViewSnap>().item.Add(obj);
+            AudioManager.instance.PlayMusic(Music.Menu);
         }
 
         if (GameDataSctipt.instance.GetCoin() == 0)
