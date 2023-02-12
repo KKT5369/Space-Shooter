@@ -16,6 +16,8 @@ public class PlayerScript : MonoBehaviour
     private Vector2 chrSize;
     public double dmg;
     public SpriteRenderer spr;
+    public string horizontalAxis = "Horizontal";
+    public string VerricalAxis = "Vertical";
 
     void Start()
     {
@@ -43,51 +45,45 @@ public class PlayerScript : MonoBehaviour
     private void PlayerShot()
     {
         shotDelay += Time.deltaTime;
-        if (Input.GetKey(KeyCode.Space))
+        if (shotDelay > shotMax)
         {
-            if (shotDelay > shotMax)
-            {
-                shotDelay = 0;
-                Vector3 vec = new Vector3(transform.position.x + 1.12f, 
-                    transform.position.y - 0.17f, transform.position.z);
-                Instantiate(shot, vec , Quaternion.identity);
-                //GameObject shotObj = Instantiate(shot, vec, quaternion.identity);
-                GameObject shotObj = ObjectPoolManager.instance.playerShot.Create();
-                shotObj.transform.position = vec;
-                shotObj.transform.rotation = Quaternion.identity;
-                ShotScript shotScript = shotObj.GetComponent<ShotScript>();
-                shotScript.dmg = dmg;
-                AudioManager.instance.PlaySound(Sound.PlayerShot);
-            }
+            shotDelay = 0;
+            Vector3 vec = new Vector3(transform.position.x + 1.12f, 
+                transform.position.y - 0.17f, transform.position.z);
+            Instantiate(shot, vec , Quaternion.identity);
+            //GameObject shotObj = Instantiate(shot, vec, quaternion.identity);
+            GameObject shotObj = ObjectPoolManager.instance.playerShot.Create();
+            shotObj.transform.position = vec;
+            shotObj.transform.rotation = Quaternion.identity;
+            ShotScript shotScript = shotObj.GetComponent<ShotScript>();
+            shotScript.dmg = dmg;
+            AudioManager.instance.PlaySound(Sound.PlayerShot);
         }
     }
 
     void Move()
     {
-        float x = Input.GetAxisRaw("Horizontal");
-        float y = Input.GetAxisRaw("Vertical");
-        Vector3 dir = new Vector3(x, y, 0).normalized;
-        transform.position = transform.position + dir * Time.deltaTime * speed;
-        float newX = transform.position.x;
-        float newY = transform.position.y;
-        /*
-        if (newX < min.x + chrSize.x)
+        float newX;
+        float newY;
+        if (Application.platform == RuntimePlatform.Android)
         {
-            newX = min.x + chrSize.x;
+            float x = SimpleInput.GetAxisRaw(horizontalAxis);
+            float y = SimpleInput.GetAxisRaw(VerricalAxis);
+            Vector3 dir = new Vector3(x, y, 0).normalized;
+            transform.position = transform.position + dir * Time.deltaTime * speed;
+            newX = transform.position.x;
+            newY = transform.position.y;
         }
-        if (newX > max.x - chrSize.x)
+        else
         {
-            newX = max.x - chrSize.x;
+            float x = Input.GetAxisRaw("Horizontal");
+            float y = Input.GetAxisRaw("Vertical");
+            Vector3 dir = new Vector3(x, y, 0).normalized;
+            transform.position = transform.position + dir * Time.deltaTime * speed;
+            newX = transform.position.x;
+            newY = transform.position.y;
         }
-        if (newY < min.y + chrSize.y)
-        {
-            newY = min.y + chrSize.y;
-        }
-        if (newY > max.y - chrSize.y)
-        {
-            newY = max.y - chrSize.y;
-        }
-        */
+        
         newX = Mathf.Clamp(newX, min.x + chrSize.x, max.x - chrSize.x);
         newY = Mathf.Clamp(newY, min.y + chrSize.y, max.y - chrSize.y);
         transform.position = new Vector3(newX, newY, transform.position.z);
