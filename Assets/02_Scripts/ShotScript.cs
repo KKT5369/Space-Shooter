@@ -1,3 +1,4 @@
+using Game;
 using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -38,6 +39,10 @@ public class ShotScript : MonoBehaviour
                 explosionObject.transform.rotation = Quaternion.identity;
                 ExplosionScript explosionScript = explosionObject.GetComponent<ExplosionScript>();
                 explosionScript.InitTime();
+
+                string str = Util.GetBigNumber(asteroidScript.maxHp);
+                GameManager.instance.CreateFloatingText(str,asteroidScript.transform.position);
+                
                 Vector3 randomPos = new Vector3(Random.Range(-0.1f, 0.1f), Random.Range(-0.1f, 0.1f),0);
                 //GameObject coinObj = Instantiate(coin, transform.position + randomPos, Quaternion.identity);
                 GameObject coinObj = ObjectPoolManager.instance.coin.Create();
@@ -70,6 +75,10 @@ public class ShotScript : MonoBehaviour
                 explosionObject.transform.rotation = Quaternion.identity;
                 ExplosionScript explosionScript = explosionObject.GetComponent<ExplosionScript>();
                 explosionScript.InitTime();
+                
+                string str = Util.GetBigNumber(enemyScript.maxHp);
+                GameManager.instance.CreateFloatingText(str,enemyScript.transform.position);
+                
                 Vector3 randomPos = new Vector3(Random.Range(-0.1f, 0.1f), Random.Range(-0.1f, 0.1f),0);
                 //GameObject coinObj = Instantiate(coin, transform.position + randomPos, Quaternion.identity);
                 GameObject coinObj = ObjectPoolManager.instance.coin.Create();
@@ -102,6 +111,10 @@ public class ShotScript : MonoBehaviour
                 explosionObject.transform.rotation = Quaternion.identity;
                 ExplosionScript explosionScript = explosionObject.GetComponent<ExplosionScript>();
                 explosionScript.InitTime();
+                
+                string str = Util.GetBigNumber(bossScript.maxHp);
+                GameManager.instance.CreateFloatingText(str,bossScript.transform.position);
+                
                 Vector3 randomPos = new Vector3(Random.Range(-0.1f, 0.1f), Random.Range(-0.1f, 0.1f),0);
                 //GameObject coinObj = Instantiate(coin, transform.position + randomPos, Quaternion.identity);
                 GameObject coinObj = ObjectPoolManager.instance.coin.Create();

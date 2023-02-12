@@ -28,6 +28,40 @@ namespace Game
             popupScript.detailText.text = detail;
             popupScript.SetYesListener(yesAction);
         }
+        private static string[] digit = new string[]
+        {
+            "","k","m","g","t","p","e","z","y","A","B","C","D","E","F","G","H","I","J","K","L","M",
+            "N","O","P","Q","R","S","T","U","V","W","X","Y","Z"
+        };
+        public static string GetBigNumber(double number)
+        {
+            if (number < 1000)
+            {
+                return number.ToString();
+            }
+            double expNum;
+            int powNum;
+            string numStr = number.ToString("E");
+            string[] parts = numStr.Split("+");
+            if (parts.Length < 2)
+            {
+                return "";
+            }
+            else
+            {
+                string expPart = parts[0].Remove(parts[0].Length - 1);
+                string powPart = parts[1];
+                expNum = double.Parse(expPart);
+                powNum = int.Parse(powPart);
+                int index = powNum / 3;
+                int multiple = powNum % 3;
+                expNum = expNum * Mathf.Pow(10, multiple);
+                string firstStr = string.Format("{0:n3}", expNum);
+                string secondStr = digit[index];
+                string result = string.Concat(firstStr, secondStr);
+                return result;
+            }
+        }
     }
     public struct ShipData
     {

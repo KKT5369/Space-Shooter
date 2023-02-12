@@ -15,6 +15,7 @@ public class ObjectPoolManager : MonoBehaviour
     public GameObject shotEffectPrefab;
     public GameObject explosionPrefab;
     public GameObject bossShotPrefab;
+    public GameObject floatingTextPrefab;
 
     public ObjectPool playerShot;
     public ObjectPool asteroid;
@@ -24,6 +25,7 @@ public class ObjectPoolManager : MonoBehaviour
     public ObjectPool shotEffect;
     public ObjectPool explosion;
     public ObjectPool bossShot;
+    public ObjectPool floatingText;
     
     public class ObjectPool
     {
@@ -81,6 +83,7 @@ public class ObjectPoolManager : MonoBehaviour
         shotEffect = new ObjectPool(shotEffectPrefab);
         explosion = new ObjectPool(explosionPrefab);
         bossShot = new ObjectPool(bossShotPrefab);
+        floatingText = new ObjectPool(floatingTextPrefab);
     }
 
     void Update()

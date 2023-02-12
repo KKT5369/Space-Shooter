@@ -267,4 +267,15 @@ public class GameManager : MonoBehaviour
         ClearPanel.SetActive(true);
     }
 
+    public void CreateFloatingText(string text, Vector3 pos)
+    { 
+        GameObject obj = ObjectPoolManager.instance.floatingText.Create();
+        Transform canvasTr = GameObject.Find("Canvas").transform;
+        obj.transform.SetParent(canvasTr, false);
+        obj.transform.position = pos;
+        obj.GetComponent<Text>().text = text;
+        FloationTextScript floationTextScript = obj.GetComponent<FloationTextScript>();
+        floationTextScript.Init();
+    }
+
 }

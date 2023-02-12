@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Game;
 using UnityEngine;
 
 public class AsteroidScript : MonoBehaviour
@@ -11,12 +12,15 @@ public class AsteroidScript : MonoBehaviour
     public float rotSpeed = 5;
     public float hp = 10;
     public float coin = 2;
-    private float maxHp;
+    public float maxHp;
     private Vector3 hpTargetScale;
     private Vector3 hpOrigin;
 
+
     private void Start()
     {
+        string str = Util.GetBigNumber(1001111);
+        print(str);
         maxHp = hp;
         hpTransform.rotation = Quaternion.identity;
         hpBackTransform.rotation = Quaternion.identity;
